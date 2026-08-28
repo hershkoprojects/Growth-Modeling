@@ -1,0 +1,43 @@
+---
+// This is your built-in SEO — it does what a plugin like Yoast does on WordPress,
+// but automatically for every page. Fill title + description per page and you're done.
+import type { Lang } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: Lang;
+  /** path without locale prefix, e.g. '/blog' or '/about'. '/' for home. */
+  path?: string;
+  image?: string;
+}
+
+const { title, description, lang, path = '/', image = '/og-default.png' } = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const enPath = path === '/' ? '/' : path;
+const hePath = path === '/' ? '/he/' : `/he${path}`;
+const canonical = site + (lang === 'en' ? enPath : hePath);
+const ogImage = image.startsWith('http') ? image : site + image;
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Tell Google that each page has an English and a Hebrew version -->
+<link rel="alternate" hreflang="en" href={site + enPath} />
+<link rel="alternate" hreflang="he" href={site + hePath} />
+<link rel="alternate" hreflang="x-default" href={site + enPath} />
+
+<!-- Open Graph (how the link looks when shared on social / WhatsApp) -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={lang === 'he' ? 'he_IL' : 'en_US'} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Growth Modeling — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{--paper:#FBFAF6;--paper-2:#F1F0E9;--ink:#15171C;--muted:#59606F;--line:#E4E3DB;
+    --brand:#2B44E0;--brand-deep:#1A2A9C;--accent:#E8654A;
+    --serif:'Space Grotesk',system-ui,sans-serif;--body:'Inter',system-ui,sans-serif;
+    --mono:'Space Mono','Rubik',monospace;--max:1180px;}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none;cursor:pointer}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  .mono{font-family:var(--mono);font-size:12px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+  header{position:sticky;top:0;z-index:50;background:rgba(251,250,246,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-weight:600;font-size:18px;letter-spacing:-.01em}
+  .logo .mark{width:26px;height:26px}
+  .navlinks{display:flex;align-items:center;gap:22px;font-size:14px;font-weight:500}
+  .navlinks a{color:var(--muted);transition:color .18s}
+  .navlinks a:hover,.navlinks a.active{color:var(--ink)}
+  .lang{font-family:var(--mono);font-size:12px;border:1px solid var(--line);border-radius:999px;padding:6px 12px;color:var(--ink)}
+  .btn-nav{background:var(--brand);color:#fff;font-weight:600;font-size:13.5px;padding:9px 16px;border-radius:9px}
+  .btn-nav:hover{background:var(--brand-deep)}
+  .hero{padding:72px 0 36px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:20px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px rgba(232,101,74,.15)}
+  h1{font-family:var(--serif);font-weight:600;font-size:clamp(36px,5vw,58px);line-height:1.03;letter-spacing:-.025em;margin-bottom:20px}
+  h1 .u{position:relative;white-space:nowrap}
+  h1 .u::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:10px;background:linear-gradient(90deg,var(--brand),var(--accent));opacity:.22;z-index:-1;border-radius:2px}
+  .lead{font-size:18px;color:var(--muted);max-width:52ch;margin-bottom:30px}
+  .cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .btn{font-weight:600;font-size:15px;padding:13px 22px;border-radius:10px;transition:.2s;border:1px solid transparent}
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover{background:var(--brand);transform:translateY(-1px)}
+  .btn-ghost{border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--ink)}
+  .stage{position:relative;width:100%}
+  .stage svg{width:100%;height:auto;overflow:visible}
+  .node-label{font-family:var(--mono);font-size:10px;fill:var(--ink);letter-spacing:0}
+  .loop-path{fill:none;stroke:var(--brand);stroke-width:1.5;stroke-dasharray:5 6;opacity:.5;animation:dash 22s linear infinite}
+  @keyframes dash{to{stroke-dashoffset:-220}}
+  .pulse{fill:var(--accent)}
+  @keyframes ride{to{offset-distance:100%}}
+  .drivers{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin-top:8px}
+  .chip{font-family:var(--mono);font-size:11px;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:5px 11px;background:#fff}
+  .flowstrip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:30px;background:var(--paper-2)}
+  .flowstrip-inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:22px 20px}
+  .flowstrip .step{font-family:var(--serif);font-weight:600;font-size:clamp(15px,2vw,19px)}
+  .flowstrip .arr{color:var(--brand);font-family:var(--mono);font-size:14px}
+  section.block{padding:66px 0}
+  .tinted{background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .sec-head{max-width:700px;margin-bottom:40px}
+  .sec-head h2{font-family:var(--serif);font-weight:700;font-size:clamp(25px,3.2vw,36px);letter-spacing:-.01em;line-height:1.22;margin:12px 0 14px}
+  .sec-head p{color:var(--muted);font-size:17px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{border:1px solid var(--line);border-radius:16px;padding:26px;background:#fff;transition:.22s;display:block}
+  .card:hover{transform:translateY(-3px);border-color:var(--brand);box-shadow:0 14px 30px -18px rgba(43,68,224,.4)}
+  .card h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:6px 0 8px}
+  .card p{font-size:14.5px;color:var(--muted)}
+  .card .idx{font-family:var(--mono);font-size:12px;color:var(--brand)}
+  .card .more{display:inline-block;margin-top:14px;font-weight:600;font-size:14px;color:var(--brand)}
+  .moment .tag{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--brand);border-radius:6px;padding:4px 9px;margin-bottom:14px}
+  .moment:nth-child(2) .tag{background:var(--accent)}
+  .moment:nth-child(3) .tag{background:var(--ink)}
+  .moment .cta{margin-top:16px;font-family:var(--mono);font-size:12px;color:var(--brand);display:inline-block}
+  .corebox{display:grid;grid-template-columns:1fr 1fr;gap:40px;border:1px solid var(--line);border-radius:20px;padding:36px;background:#fff}
+  .target{font-family:var(--mono);font-size:13px;color:var(--brand);border:1px dashed var(--brand);border-radius:10px;padding:14px 16px;display:inline-block;margin-bottom:18px}
+  .qlist{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .qlist li{display:flex;gap:11px;font-size:16px;color:#2a2e38}
+  .qlist li::before{content:"→";color:var(--brand);font-family:var(--mono)}
+  .keyline{font-family:var(--serif);font-size:clamp(19px,2.6vw,24px);font-weight:500;line-height:1.4;margin-top:26px}
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#fff}
+  .stepc{padding:24px 20px;border-right:1px solid var(--line)}
+  .stepc:last-child{border-right:none}
+  .stepc .no{font-family:var(--mono);font-size:12px;color:var(--brand)}
+  .stepc h3{font-family:var(--serif);font-size:16px;font-weight:600;margin:10px 0 8px}
+  .stepc p{font-size:13px;color:var(--muted)}
+  .assume{border:1px solid var(--line);border-radius:20px;padding:40px;background:#fff;text-align:center}
+  .assume h2{font-family:var(--serif);font-weight:700;font-size:clamp(23px,3vw,32px);max-width:26ch;margin:12px auto 14px}
+  .assume p{max-width:62ch;margin:0 auto 24px;color:var(--muted);font-size:17px}
+  .finalcta{background:var(--ink);color:var(--paper);border-radius:22px;padding:52px 40px;text-align:center}
+  .finalcta h2{font-family:var(--serif);font-weight:700;color:var(--paper);max-width:24ch;margin:0 auto 14px;font-size:clamp(23px,3vw,34px)}
+  .finalcta p{color:#c9cbd2;max-width:58ch;margin:0 auto 26px;font-size:17px}
+  .finalcta .btn-primary{background:var(--brand)}
+  .finalcta .btn-primary:hover{background:#fff;color:var(--ink)}
+  .article,.formwrap{max-width:680px;margin:0 auto;padding:54px 28px 40px}
+  .article h1{font-size:clamp(27px,3.6vw,42px);margin:12px 0 16px;line-height:1.2}
+  .prose p{margin:0 0 18px;color:#2a2e38;font-size:17.5px;line-height:1.8}
+  .post-row{display:block;border-bottom:1px solid var(--line);padding:26px 0;transition:.18s}
+  .post-row:hover{padding-left:8px}
+  .post-row .k{font-family:var(--mono);font-size:12px;color:var(--brand)}
+  .post-row h3{font-family:var(--serif);font-size:22px;font-weight:600;margin:8px 0 6px}
+  .post-row p{color:var(--muted);font-size:15px;max-width:60ch}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-family:var(--mono);font-size:12px;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
+  .field input,.field textarea{width:100%;font-family:var(--body);font-size:16px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px rgba(43,68,224,.12)}
+  .field textarea{resize:vertical;min-height:130px}
+  .formnote{font-size:14px;color:var(--muted);margin-top:16px}
+  .formnote a{color:var(--brand)}
+  footer{border-top:1px solid var(--line);padding:36px 0;margin-top:20px}
+  .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  .foot .mono{font-size:11px}
+  .banner{background:var(--brand);color:#fff;text-align:center;font-family:var(--mono);font-size:11px;letter-spacing:.02em;text-transform:uppercase;padding:7px}
+  .view{display:none}.view.on{display:block;animation:fade .3s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  @media(max-width:860px){
+    .hero-grid{grid-template-columns:1fr;gap:28px}.stage{max-width:380px;margin:0 auto}
+    .cards{grid-template-columns:1fr}.corebox{grid-template-columns:1fr;gap:22px;padding:26px}
+    .steps{grid-template-columns:1fr}.stepc{border-right:none;border-bottom:1px solid var(--line)}
+    .stepc:last-child{border-bottom:none}
+    .navlinks a:not(.lang):not(.btn-nav){display:none}
+  }
+
+.gl-arc{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:5 9;animation:gl-flow 1s linear infinite}
+@keyframes gl-flow{to{stroke-dashoffset:-14}}
+.gl-node{fill:#fff;stroke-width:2}
+.gl-label{font-family:var(--mono);font-size:11px;fill:var(--ink)}
+.gl-center{font-family:var(--serif);font-weight:700;font-size:20px;fill:var(--ink)}
+.gl-pulse{fill:var(--accent)}
+@keyframes gl-ride{to{offset-distance:100%}}
+.funnel{max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+.frow{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 20px}
+.frow .fv{font-family:var(--serif);font-weight:700;font-size:20px}
+.frow .fl{color:var(--muted);font-size:14px}
+.fdown{align-self:center;color:var(--brand);font-family:var(--mono);font-size:14px;padding:5px 0}
+.scenarios{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:34px}
+.scenario{border:1px solid var(--line);border-inline-start:3px solid var(--brand);border-radius:12px;padding:20px;background:#fff;font-family:var(--serif);font-weight:500;font-size:17px;line-height:1.32}
+.scenario:nth-child(2){border-inline-start-color:var(--accent)}
+.scenario:nth-child(3){border-inline-start-color:#7A5AF8}
+.receive{display:grid;grid-template-columns:repeat(2,1fr);gap:12px 30px;max-width:760px}
+.receive .ri{display:flex;gap:11px;align-items:flex-start;font-size:15.5px;color:#2a2e38}
+.receive .ri::before{content:"✓";color:var(--brand);font-weight:700;flex:none}
+.recv-note{margin-top:26px;font-family:var(--serif);font-size:18px;font-weight:500;max-width:60ch}
+.deck{display:grid;grid-template-columns:.85fr 1.15fr;gap:34px;align-items:center;border:1px solid var(--line);border-radius:20px;padding:36px;background:#fff}
+.deck-badge{font-family:var(--serif);font-weight:700;font-size:clamp(26px,3.4vw,38px);color:var(--brand);border:1px dashed var(--brand);border-radius:14px;padding:22px;text-align:center}
+.chain{display:flex;flex-direction:column;gap:7px}
+.chain .cc{font-family:var(--mono);font-size:13.5px;background:var(--paper-2);border-radius:9px;padding:11px 15px;text-align:center;border:1px solid var(--line)}
+.chain .ca{color:var(--brand);text-align:center;font-family:var(--mono);font-size:12px}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.vscard{border:1px solid var(--line);border-radius:16px;padding:30px;background:#fff}
+.vscard.accent{border-color:var(--brand);box-shadow:0 14px 34px -22px rgba(43,68,224,.5)}
+.vscard .vk{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.vscard.accent .vk{color:var(--brand)}
+.vscard .vq{font-family:var(--serif);font-weight:700;font-size:clamp(20px,2.4vw,25px);line-height:1.2;margin:12px 0 0}
+.vs-note{margin-top:24px;color:var(--muted);font-size:16px;max-width:66ch}
+.vs-note b{color:var(--ink)}
+.examples{display:flex;flex-direction:column;gap:14px}
+.exrow{display:flex;flex-wrap:wrap;align-items:center;gap:12px;border:1px solid var(--line);border-radius:14px;padding:18px 22px;background:#fff}
+.exrow .exname{font-family:var(--serif);font-weight:700;font-size:16px;min-width:160px}
+.exflow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.exflow .en{font-family:var(--mono);font-size:12px;background:var(--paper-2);border-radius:999px;padding:5px 12px}
+.exflow .ea{color:var(--brand);font-family:var(--mono);font-size:12px}
+.ex-note{margin-top:20px;color:var(--muted);font-size:14px;font-style:italic}
+@media(max-width:860px){.scenarios{grid-template-columns:1fr}.receive{grid-template-columns:1fr}.deck{grid-template-columns:1fr;gap:24px;padding:26px}.vs{grid-template-columns:1fr}.exrow .exname{min-width:100%}}
+</style>
+</head>
+<body>
+<div class="banner">Interactive preview · nav links work — try About, Blog, Contact</div>
+<header>
+  <div class="wrap nav">
+    <a class="logo" onclick="go('home')">
+      <svg class="mark" viewBox="0 0 26 26" fill="none"><rect x="1" y="1" width="24" height="24" rx="7" stroke="var(--ink)" stroke-width="1.5"/><path d="M6 18 L11 12 L15 15 L20 7" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="7" r="2.4" fill="var(--accent)"/></svg>
+      Growth Modeling
+    </a>
+    <nav class="navlinks">
+      <a id="nav-about" onclick="go('about')">About</a>
+      <a id="nav-blog" onclick="go('blog')">Blog</a>
+      <a id="nav-contact" onclick="go('contact')">Contact</a>
+      <a class="lang">עברית ↗</a>
+      <a class="btn-nav" onclick="go('contact')">Build Your Growth Model</a>
+    </nav>
+  </div>
+</header>
+
+<div class="view on" id="view-home">
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span><span class="mono">Growth Modeling for Startups</span></span>
+        <h1>Know what has to be true for your startup to <span class="u">grow</span>.</h1>
+        <p class="lead">Turn acquisition, conversion, pricing, retention, and revenue assumptions into a model you can test, explain, and operate against — whether you're planning the business, preparing your pitch, or comparing the plan with real performance.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" onclick="go('contact')">Build Your Growth Model</a>
+          <a class="btn btn-ghost" onclick="go('blog')">See an example model →</a>
+        </div>
+      </div>
+      <div class="stage">
+        <svg viewBox="0 0 440 380" aria-label="growth loop">
+          <defs>
+            <marker id="ah-b" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#2B44E0"/></marker>
+            <marker id="ah-c" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#E8654A"/></marker>
+            <marker id="ah-v" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#7A5AF8"/></marker>
+            <marker id="ah-g" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#22B573"/></marker>
+          </defs>
+          <path d="M220 60 Q332 78 350 190 Q332 302 220 320 Q108 302 90 190 Q108 78 220 60 Z" fill="none" stroke="var(--line)" stroke-width="1"/>
+          <path class="gl-arc" stroke="#2B44E0" marker-end="url(#ah-b)" d="M232 62 Q332 82 346 168"/>
+          <path class="gl-arc" stroke="#E8654A" marker-end="url(#ah-c)" d="M350 202 Q334 300 236 314"/>
+          <path class="gl-arc" stroke="#7A5AF8" marker-end="url(#ah-v)" d="M204 318 Q106 300 92 202"/>
+          <path class="gl-arc" stroke="#22B573" marker-end="url(#ah-g)" d="M90 178 Q106 80 204 62"/>
+          <g><circle class="gl-node" cx="220" cy="60" r="7" stroke="#2B44E0"/><text class="gl-label" x="220" y="40" text-anchor="middle">TRAFFIC / PIPELINE</text></g>
+          <g><circle class="gl-node" cx="350" cy="190" r="7" stroke="#E8654A"/><text class="gl-label" x="350" y="172" text-anchor="middle">CONVERSION</text></g>
+          <g><circle class="gl-node" cx="220" cy="320" r="7" stroke="#7A5AF8"/><text class="gl-label" x="220" y="344" text-anchor="middle">CUSTOMERS</text></g>
+          <g><circle class="gl-node" cx="90" cy="190" r="9" stroke="#22B573" fill="#22B573"/><text class="gl-label" x="90" y="172" text-anchor="middle">REVENUE</text></g>
+          <text class="gl-center" x="220" y="185" text-anchor="middle">GROWTH</text>
+          <text class="gl-center" x="220" y="210" text-anchor="middle">MODEL</text>
+          <circle class="gl-pulse" r="4.5" style="offset-path:path('M220 60 Q332 78 350 190 Q332 302 220 320 Q108 302 90 190 Q108 78 220 60 Z');animation:gl-ride 7s linear infinite"/>
+        </svg>
+        <div class="drivers"><span class="mono">Drivers</span><span class="chip">CAC</span><span class="chip">Pricing</span><span class="chip">Retention</span><span class="chip">Sales cycle</span><span class="chip">Referral</span></div>
+      </div>
+    </div>
+    <div class="flowstrip"><div class="wrap flowstrip-inner">
+      <span class="step">Target</span><span class="arr">→</span><span class="step">Drivers</span><span class="arr">→</span><span class="step">Assumptions</span><span class="arr">→</span><span class="step">Scenarios</span><span class="arr">→</span><span class="step">Decisions</span>
+    </div></div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">The core question</span><h2>A forecast tells you where you want to go. A growth model shows what needs to happen to get there.</h2></div>
+      <div class="corebox">
+        <div>
+          <span class="target">Your target: $5M ARR</span>
+          <p style="color:var(--muted);margin-bottom:6px">To know whether that target is plausible, the model asks:</p>
+          <ul class="qlist"><li>How many paying customers?</li><li>At what ARPU or ACV?</li><li>At what conversion rate?</li><li>From how much traffic or pipeline?</li><li>With what retention?</li><li>At what acquisition cost?</li></ul>
+        </div>
+        <div><p class="keyline">The goal isn't to predict the future perfectly. It's to make the assumptions behind it explicit.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Built for founders</span><h2>For the decisions you face before and after launch.</h2></div>
+      <div class="cards">
+        <div class="card moment"><span class="tag">Planning</span><h3>Before you launch</h3><p>Turn your idea and target into a structured growth model — drivers, funnel, revenue requirements, and the assumptions your business depends on most.</p><a class="cta" onclick="go('contact')">Model the plan →</a></div>
+        <div class="card moment"><span class="tag">Fundraising</span><h3>Before you pitch investors</h3><p>Connect the projections in your deck to the operating assumptions required to achieve them, test scenarios, and walk in ready for the questions.</p><a class="cta" onclick="go('contact')">Pressure-test the pitch →</a></div>
+        <div class="card moment"><span class="tag">Operating</span><h3>Once the startup is live</h3><p>Compare the original model with reality — where actuals differ from plan, which assumption explains the largest variance, and which lever deserves attention.</p><a class="cta" onclick="go('contact')">Review actual vs. plan →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">How it works</span><h2>From target to operating model.</h2></div>
+      <div class="steps">
+        <div class="stepc"><div class="no">01</div><h3>Define the goal</h3><p>Business model, stage, primary growth goal, target and timeline.</p></div>
+        <div class="stepc"><div class="no">02</div><h3>Map the drivers</h3><p>The chain connecting acquisition to the outcome.</p></div>
+        <div class="stepc"><div class="no">03</div><h3>Quantify assumptions</h3><p>Real values on acquisition, conversion, pricing, retention.</p></div>
+        <div class="stepc"><div class="no">04</div><h3>Simulate scenarios</h3><p>Which lever moves the outcome most.</p></div>
+        <div class="stepc"><div class="no">05</div><h3>Compare with reality</h3><p>Replace assumptions with actuals, revise the model.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Assumptions</span><h2>Every forecast is built on assumptions.</h2><p>The problem isn't that assumptions exist — it's not knowing what they are. Make them explicit, and the forecast becomes a model you can work with.</p></div>
+      <div class="funnel"><div class="frow"><span class="fv">10,000</span><span class="fl">monthly visitors</span></div><div class="fdown">↓</div><div class="frow"><span class="fv">8%</span><span class="fl">sign-up rate</span></div><div class="fdown">↓</div><div class="frow"><span class="fv">20%</span><span class="fl">Activation</span></div><div class="fdown">↓</div><div class="frow"><span class="fv">12%</span><span class="fl">paid conversion</span></div><div class="fdown">↓</div><div class="frow"><span class="fv">$80</span><span class="fl">ARPU</span></div><div class="fdown">↓</div><div class="frow"><span class="fv">3%</span><span class="fl">monthly churn</span></div></div>
+      <div class="scenarios"><div class="scenario">What if sign-up is 6% instead of 8%?</div><div class="scenario">What moves the needle more — +20% traffic or +10% conversion?</div><div class="scenario">Which assumption must improve to hit the target?</div></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">What you get</span><h2>A growth model built around your business.</h2><p>Depending on your stage and business type, the work can include:</p></div>
+      <div class="receive"><div class="ri">Mapping your growth drivers</div><div class="ri">Breaking the revenue target into its parts</div><div class="ri">Building the funnel / growth model</div><div class="ri">Defining the key assumptions</div><div class="ri">Scenario testing</div><div class="ri">Sensitivity Analysis</div><div class="ri">The highest-impact assumptions</div><div class="ri">The metrics worth measuring first</div><div class="ri">A pitch-deck-ready version</div><div class="ri">Plan vs. actual, if data already exists</div></div>
+      <p class="recv-note">The focus is on the growth drivers themselves — not just the rows of a financial forecast.</p>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">For fundraising</span><h2>Your pitch deck has the numbers. The model has the story behind them.</h2><p>Investors don't just look at a forecast — they examine the logic behind it. If you present a revenue target, you should be able to connect it back to:</p></div>
+      <div class="deck">
+        <div><div class="mono" style="margin-bottom:10px">Pitch deck says</div><div class="deck-badge">$5M ARR</div></div>
+        <div class="chain"><div class="cc">Customers required</div><div class="ca">↓</div><div class="cc">Conversion rates</div><div class="ca">↓</div><div class="cc">Pipeline / Traffic</div><div class="ca">↓</div><div class="cc">CAC</div><div class="ca">↓</div><div class="cc">Pricing</div><div class="ca">↓</div><div class="cc">Retention</div></div>
+      </div>
+      <div style="margin-top:24px"><a class="btn btn-primary" onclick="go('contact')">Pressure-test before you raise</a></div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Growth Model ≠ Financial Model</span><h2>A growth model is not a financial model.</h2></div>
+      <div class="vs">
+        <div class="vscard"><span class="vk">Financial model</span><p class="vq">What will revenue, costs and cash flow look like?</p></div>
+        <div class="vscard accent"><span class="vk">Growth model</span><p class="vq">What actually has to happen for that revenue to exist?</p></div>
+      </div>
+      <p class="vs-note">Instead of starting from accounting lines, it starts from the drivers: acquisition, conversion, pricing, usage, retention, referral, sales.</p>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Examples</span><h2>Models by business type.</h2></div>
+      <div class="examples"><div class="exrow"><span class="exname">B2B SaaS</span><div class="exflow"><span class="en">Leads</span><span class="ea">→</span><span class="en">Opportunities</span><span class="ea">→</span><span class="en">Customers</span><span class="ea">→</span><span class="en">ACV</span><span class="ea">→</span><span class="en">ARR</span></div></div><div class="exrow"><span class="exname">Product-Led SaaS</span><div class="exflow"><span class="en">Traffic</span><span class="ea">→</span><span class="en">Signup</span><span class="ea">→</span><span class="en">Activation</span><span class="ea">→</span><span class="en">Paid</span><span class="ea">→</span><span class="en">Revenue</span></div></div><div class="exrow"><span class="exname">Subscription</span><div class="exflow"><span class="en">Traffic</span><span class="ea">→</span><span class="en">Purchase</span><span class="ea">→</span><span class="en">Subscription</span><span class="ea">→</span><span class="en">Retention</span><span class="ea">→</span><span class="en">Revenue</span></div></div><div class="exrow"><span class="exname">Marketplace</span><div class="exflow"><span class="en">Supply + Demand</span><span class="ea">→</span><span class="en">Match</span><span class="ea">→</span><span class="en">Transaction</span><span class="ea">→</span><span class="en">Take Rate</span><span class="ea">→</span><span class="en">Revenue</span></div></div></div>
+      <p class="ex-note">Illustrative — not universal templates.</p>
+    </div>
+  </section>
+
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Insights</span><h2>Writing on growth modeling.</h2></div>
+      <div class="cards">
+        <a class="card" onclick="go('post')"><div class="idx">Guide · 12 min</div><h3>Building your first growth model</h3><p>A step-by-step walk from a blank sheet to a working model you can make decisions with.</p><span class="more">Read →</span></a>
+        <a class="card" onclick="go('blog')"><div class="idx">Essay · 6 min</div><h3>Growth model vs. financial model</h3><p>Why founders need both — and what each one is actually for.</p><span class="more">Read →</span></a>
+        <a class="card" onclick="go('blog')"><div class="idx">Guide · 8 min</div><h3>What investors ask about your assumptions</h3><p>The questions behind the numbers in your deck — and how to be ready.</p><span class="more">Read →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap"><div class="finalcta">
+      <h2>Before you build the forecast, understand what has to be true.</h2>
+      <p>Whether your startup is still an idea, preparing to raise, or already generating data — start by mapping the drivers behind the target.</p>
+      <a class="btn btn-primary" onclick="go('contact')">Build Your Growth Model</a>
+    </div></div>
+  </section>
+</main>
+</div>
+
+<div class="view" id="view-blog">
+  <section class="block"><div class="wrap">
+    <div class="sec-head"><span class="mono">Growth Modeling</span><h2>Insights</h2><p>Guides and essays on modeling startup growth.</p></div>
+    <div>
+      <a class="post-row" onclick="go('post')"><span class="k">Guide · 12 min</span><h3>Building your first growth model</h3><p>A step-by-step walk from a blank sheet to a working model you can make decisions with.</p></a>
+      <a class="post-row" onclick="go('post')"><span class="k">Essay · 6 min</span><h3>Growth model vs. financial model</h3><p>Why founders need both — and what each one is actually for.</p></a>
+      <a class="post-row" onclick="go('post')"><span class="k">Guide · 8 min</span><h3>What investors ask about your assumptions</h3><p>The questions behind the numbers in your deck — and how to be ready.</p></a>
+    </div>
+  </div></section>
+</div>
+
+<div class="view" id="view-post">
+  <article class="article">
+    <div style="margin-bottom:18px"><a class="mono" onclick="go('blog')">← All insights</a></div>
+    <span class="mono">Guide · 12 min · February 10, 2026</span>
+    <h1>Building your first growth model</h1>
+    <div class="prose">
+      <p>Most people think a growth model is a spreadsheet. It isn't. A spreadsheet is where the model lives — but the model itself is a set of relationships: how one number turns into the next.</p>
+      <p>Before you type a single formula, map the drivers that connect a visitor to revenue, then put a real rate on every step. Once every edge has a number, the picture starts doing arithmetic for you.</p>
+      <p>That's the point of the model: to find the lever with the biggest downstream effect before you spend a shekel on it.</p>
+    </div>
+  </article>
+</div>
+
+<div class="view" id="view-about">
+  <article class="article">
+    <span class="mono">About</span>
+    <h1>Why Growth Modeling?</h1>
+    <div class="prose">
+      <p>Founders routinely create ambitious growth and revenue projections. But the operating logic behind those projections — what actually has to happen for the numbers to work — usually stays buried inside assumptions.</p>
+      <p>Growth Modeling exists to bring that logic to the surface: to make it visible, quantitative, testable, explainable, and updatable. The focus sits specifically at the intersection of growth, strategy, modeling, and startup decision-making.</p>
+      <p>The goal isn't to predict the future perfectly. It's to help founders understand what needs to be true for their startup to grow — and to keep that understanding alive after launch.</p>
+    </div>
+  </article>
+</div>
+
+<div class="view" id="view-contact">
+  <section class="formwrap">
+    <span class="mono">Contact</span>
+    <h1 style="font-family:var(--serif);font-weight:700;font-size:clamp(27px,3.8vw,40px);margin:12px 0 12px">Build Your Growth Model</h1>
+    <p style="color:var(--muted);font-size:17px;margin-bottom:30px">Tell us a little about your startup and what you're trying to figure out. We'll get back to you to set up a working session.</p>
+    <div class="field"><label>Name</label><input type="text"/></div>
+    <div class="field"><label>Email</label><input type="email"/></div>
+    <div class="field"><label>Phone</label><input type="tel"/></div>
+    <div class="field"><label>What are you trying to figure out?</label><textarea placeholder="Your startup in a sentence, your target, and the assumptions that concern you most."></textarea></div>
+    <a class="btn btn-primary" onclick="alert('In the real site this sends to your inbox via Web3Forms.')">Send</a>
+    <p class="formnote">Prefer email? Reach us at <a>hello@yourdomain.com</a></p>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap foot">
+    <div class="logo" style="font-size:16px"><svg class="mark" viewBox="0 0 26 26" fill="none" style="width:22px;height:22px"><rect x="1" y="1" width="24" height="24" rx="7" stroke="var(--ink)" stroke-width="1.5"/><path d="M6 18 L11 12 L15 15 L20 7" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="7" r="2.4" fill="var(--accent)"/></svg>Growth Modeling</div>
+    <span class="mono">© 2026 · Built on Astro · EN / עברית</span>
+  </div>
+</footer>
+
+<script>
+  function go(v){
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));
+    document.getElementById('view-'+v).classList.add('on');
+    ['about','blog','contact'].forEach(n=>{
+      var el=document.getElementById('nav-'+n);
+      if(el)el.classList.toggle('active', v===n || (n==='blog'&&v==='post'));
+    });
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+</script>
+</body>
+</html>

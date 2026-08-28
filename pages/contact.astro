@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { useTranslations } from '../i18n/utils';
+const lang = 'en' as const;
+const t = useTranslations(lang);
+
+// ── HOW THE FORM SENDS ───────────────────────────────────────────────
+// A static site can't send email on its own. Easiest free option: Web3Forms.
+// 1. Go to https://web3forms.com and paste your email to get an "access key".
+// 2. Replace the value below with that key. Done — submissions arrive in your inbox.
+const WEB3FORMS_KEY = 'YOUR-ACCESS-KEY-HERE';
+const CONTACT_EMAIL = 'hello@yourdomain.com'; // shown as the email fallback
+---
+<Base lang={lang} path="/contact" title={`${t('ct.title')} — ${t('site.title')}`} description={t('ct.subtitle')}>
+  <section class="formwrap">
+    <span class="mono">{t('nav.contact')}</span>
+    <h1 style="font-family:var(--serif);font-size:clamp(28px,4vw,42px);letter-spacing:-.02em;margin:12px 0 12px">{t('ct.title')}</h1>
+    <p style="color:var(--muted);font-size:17px;margin-bottom:30px">{t('ct.subtitle')}</p>
+
+    <form action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+      <input type="hidden" name="subject" value="New Growth Model enquiry" />
+      <input type="checkbox" name="botcheck" style="display:none" />
+
+      <div class="field">
+        <label for="name">{t('ct.name')}</label>
+        <input id="name" type="text" name="name" required />
+      </div>
+      <div class="field">
+        <label for="email">{t('ct.email')}</label>
+        <input id="email" type="email" name="email" required />
+      </div>
+      <div class="field">
+        <label for="phone">{t('ct.phone')}</label>
+        <input id="phone" type="tel" name="phone" />
+      </div>
+      <div class="field">
+        <label for="message">{t('ct.msg')}</label>
+        <textarea id="message" name="message" placeholder={t('ct.msgph')} required></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary">{t('ct.send')}</button>
+      <p class="formnote">{t('ct.note')} <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a></p>
+    </form>
+  </section>
+</Base>

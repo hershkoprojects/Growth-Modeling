@@ -1,0 +1,50 @@
+---
+// Signature: an animated GROWTH LOOP.
+// Traffic/Pipeline → Conversion → Customers → Revenue → (reinvest) → back to Traffic.
+// A loop is correct here: revenue funds acquisition, so growth compounds.
+// Curved colored arrows with flowing motion + a pulse travelling the loop.
+interface Props {
+  labels: { n1: string; n2: string; n3: string; n4: string;
+            center1: string; center2: string;
+            driversLabel: string; drivers: string[]; };
+}
+const { labels } = Astro.props;
+const loop = "M220 60 Q332 78 350 190 Q332 302 220 320 Q108 302 90 190 Q108 78 220 60 Z";
+---
+<div class="stage">
+  <svg viewBox="0 0 440 380" role="img" aria-label="Growth loop diagram">
+    <defs>
+      <marker id="ah-b" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#2B44E0"/></marker>
+      <marker id="ah-c" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#E8654A"/></marker>
+      <marker id="ah-v" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#7A5AF8"/></marker>
+      <marker id="ah-g" markerWidth="7" markerHeight="7" refX="4" refY="3.2" orient="auto"><path d="M0 0 L6 3.2 L0 6 Z" fill="#22B573"/></marker>
+    </defs>
+
+    <!-- ghost full loop (depth) -->
+    <path d={loop} fill="none" stroke="var(--line)" stroke-width="1"/>
+
+    <!-- 4 flowing colored arcs, clockwise -->
+    <path class="gl-arc" stroke="#2B44E0" marker-end="url(#ah-b)" d="M232 62 Q332 82 346 168"/>
+    <path class="gl-arc" stroke="#E8654A" marker-end="url(#ah-c)" d="M350 202 Q334 300 236 314"/>
+    <path class="gl-arc" stroke="#7A5AF8" marker-end="url(#ah-v)" d="M204 318 Q106 300 92 202"/>
+    <path class="gl-arc" stroke="#22B573" marker-end="url(#ah-g)" d="M90 178 Q106 80 204 62"/>
+
+    <!-- nodes -->
+    <g><circle class="gl-node" cx="220" cy="60" r="7" stroke="#2B44E0"/><text class="gl-label" x="220" y="40" text-anchor="middle">{labels.n1}</text></g>
+    <g><circle class="gl-node" cx="350" cy="190" r="7" stroke="#E8654A"/><text class="gl-label" x="350" y="172" text-anchor="middle">{labels.n2}</text></g>
+    <g><circle class="gl-node" cx="220" cy="320" r="7" stroke="#7A5AF8"/><text class="gl-label" x="220" y="344" text-anchor="middle">{labels.n3}</text></g>
+    <g><circle class="gl-node" cx="90" cy="190" r="9" stroke="#22B573" fill="#22B573"/><text class="gl-label" x="90" y="172" text-anchor="middle">{labels.n4}</text></g>
+
+    <!-- center -->
+    <text class="gl-center" x="220" y="185" text-anchor="middle">{labels.center1}</text>
+    <text class="gl-center" x="220" y="210" text-anchor="middle">{labels.center2}</text>
+
+    <!-- pulse travelling the loop -->
+    <circle class="gl-pulse" r="4.5" style={`offset-path:path('${loop}');animation:gl-ride 7s linear infinite`}/>
+  </svg>
+
+  <div class="drivers">
+    <span class="mono drivers-lbl">{labels.driversLabel}</span>
+    {labels.drivers.map((d) => <span class="chip">{d}</span>)}
+  </div>
+</div>
