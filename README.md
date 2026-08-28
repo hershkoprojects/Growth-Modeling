@@ -133,3 +133,4 @@ The site is written as a **service** for startup founders — the core message i
 "know what has to be true for your startup to grow." All copy lives in `src/i18n/ui.ts`
 (English + Hebrew side by side), so you can adjust any wording in one place.
 The Hebrew copy is a translation of the English source — worth a quick review before launch.
+ 
