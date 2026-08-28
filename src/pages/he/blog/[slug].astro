@@ -1,0 +1,30 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, localePath } from '../../../i18n/utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', (p) => p.id.startsWith('he/'));
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/^he\//, '').replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+const lang = 'he' as const;
+const t = useTranslations(lang);
+const slug = post.id.replace(/^he\//, '').replace(/\.md$/, '');
+const date = post.data.pubDate.toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<Base lang={lang} path={`/blog/${slug}`} title={`${post.data.title} — ${t('site.title')}`} description={post.data.description}>
+  <article class="article">
+    <div class="meta">
+      <a href={localePath(lang, '/blog')} class="mono">{t('back')}</a>
+    </div>
+    <span class="mono">{post.data.kind} · {post.data.readMins} דק׳ · {date}</span>
+    <h1>{post.data.title}</h1>
+    <div class="prose"><Content /></div>
+  </article>
+</Base>

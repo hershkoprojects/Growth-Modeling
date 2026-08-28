@@ -1,0 +1,19 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+<footer>
+  <div class="wrap foot">
+    <div class="logo" style="font-size:16px">
+      <svg class="mark" viewBox="0 0 26 26" fill="none" style="width:22px;height:22px">
+        <rect x="1" y="1" width="24" height="24" rx="7" stroke="var(--ink)" stroke-width="1.5" />
+        <path d="M6 18 L11 12 L15 15 L20 7" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+        <circle cx="20" cy="7" r="2.4" fill="var(--accent)" />
+      </svg>
+      {t('site.title')}
+    </div>
+    <span class="mono">© {year} · {t('footer.built')} · EN / עברית</span>
+  </div>
+</footer>
