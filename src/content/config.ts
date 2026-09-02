@@ -8,6 +8,8 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),   // used for the card AND for SEO meta
     pubDate: z.coerce.date(),
+        image: z.string().optional(),
+    imageAlt: z.string().optional(),
     kind: z.string().default('Guide'),   // e.g. Guide / Essay / Teardown
     readMins: z.number().default(6),
     draft: z.boolean().default(false),
