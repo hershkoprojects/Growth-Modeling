@@ -21,10 +21,13 @@ const posts = (await getCollection('blog', (p) => p.id.startsWith('he/') && !p.d
         {posts.map((post) => {
           const slug = post.id.replace(/^he\//, '').replace(/\.md$/, '');
           return (
-            <a class="post-row" href={localePath(lang, `/blog/${slug}`)}>
-              <span class="k">{post.data.kind} · {post.data.readMins} דק׳</span>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
+                        <a class="post-row" href={localePath(lang, `/blog/${slug}`)}>
+              {post.data.image && <img src={post.data.image} alt={post.data.imageAlt} class="post-row-img" />}
+              <div class="post-row-body">
+                <span class="k">{post.data.kind} · {post.data.readMins} דק׳</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </div>
             </a>
           );
         })}
