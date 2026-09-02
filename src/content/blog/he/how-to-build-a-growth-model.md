@@ -4,7 +4,7 @@ description: "איך בונים מודל צמיחה לסטארטאפ כשעדי�
 pubDate: 2026-09-02
 kind: "מדריך"
 readMins: 14
-image: "/blog/how-to-build-a-growth-model.png"
+image: "/how-to-build-a-growth-model.png"
 imageAlt: "יזם בונה מודל צמיחה לסטארטאפ לפני השקה באמצעות תחזיות, בנצ'מרקים, תרחישים ומדדים פיננסיים."
 draft: false
 ---
