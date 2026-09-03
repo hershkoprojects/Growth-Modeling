@@ -10,12 +10,7 @@ const otherHref = localePath(otherLang, rest);
 <header>
   <div class="wrap nav">
     <a class="logo" href={localePath(lang, '/')}>
-      <svg class="mark" viewBox="0 0 26 26" fill="none">
-        <rect x="1" y="1" width="24" height="24" rx="7" stroke="var(--ink)" stroke-width="1.5" />
-        <path d="M6 18 L11 12 L15 15 L20 7" stroke="var(--brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-        <circle cx="20" cy="7" r="2.4" fill="var(--accent)" />
-      </svg>
-      {t('site.title')}
+      <img class="site-logo" src="/logo.svg" alt="modelera" width="120" height="80" />
     </a>
     <nav class="navlinks">
       <a href={localePath(lang, '/about')}>{t('nav.about')}</a>
