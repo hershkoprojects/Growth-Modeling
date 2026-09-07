@@ -4,6 +4,8 @@ description: "מסע צעד-אחר-צעד מדף ריק למודל עובד שא
 pubDate: 2026-02-10
 kind: "מדריך"
 readMins: 12
+image: "/building-your-first-growth-model.png"
+imageAlt: "יזם בונה מודל צמיחה לסטארטאפ המבוסס על הנחות, בנצ'מרקים, תרחישים ונתוני ביצועים"
 draft: false
 ---
 מודל צמיחה הוא לא גיליון אקסל.
