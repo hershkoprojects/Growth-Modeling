@@ -1,17 +1,149 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { useTranslations } from '../../i18n/utils';
+import { localePath } from '../../i18n/utils';
 const lang = 'he' as const;
-const t = useTranslations(lang);
 ---
-<Base lang={lang} path="/about" title={`${t('about.title')} — ${t('site.title')}`} description={t('about.p1')}>
-  <article class="article">
-    <span class="mono">{t('nav.about')}</span>
-    <h1>{t('about.title')}</h1>
-    <div class="prose">
-      <p>{t('about.p1')}</p>
-      <p>{t('about.p2')}</p>
-      <p>{t('about.p3')}</p>
+<Base
+  lang={lang}
+  path="/about"
+  title="על Modelera והגישה שמאחוריה"
+  description="Modelera נבנתה כדי להפוך מודל צמיחה ממסמך חד פעמי לכלי עבודה שמחבר בין יעד עסקי, הנחות, ביצועים בפועל וקבלת החלטות."
+>
+  <section class="about-hero block">
+    <div class="wrap about-hero-grid">
+      <div>
+        <span class="mono">אודות</span>
+        <h1>על Modelera והגישה שמאחוריה</h1>
+        <p class="about-lead">Modelera נבנתה מתוך בעיה שחזרה שוב ושוב בעבודה עם סטארטאפים וחברות טכנולוגיה: מודלים ותחזיות נבנים בתחילת הדרך, אבל מהר מאוד מפסיקים לשמש ככלי לקבלת החלטות.</p>
+        <p class="about-support">המטרה היא להפוך את מודל הצמיחה לכלי עבודה חי, כזה שמחבר בין היעד העסקי לבין מנועי הצמיחה, בודק את ההנחות מול המציאות, ועוזר להבין מה נכון לשנות עכשיו.</p>
+      </div>
+      <div class="hero-note">
+        <span class="support-label">העיקרון</span>
+        <p><strong>המודל לא נועד רק לחזות.</strong> הוא נועד לעזור להבין מה צריך להיות נכון כדי להגיע ליעד, ומה לעשות כשהמציאות שונה מהתכנון.</p>
+      </div>
     </div>
-  </article>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">הבעיה שחזרה שוב ושוב</span>
+        <h2>התחזית מאושרת, ואז נשארת בצד</h2>
+      </div>
+      <div class="about-copy-grid">
+        <p>יזמים ומנהלים משקיעים לא מעט זמן בבניית תחזיות, תוכניות עבודה ומודלים לקראת גיוס, תקציב או תחילת פעילות. אבל ברגע שהעבודה מתחילה, המודל הופך לעיתים קרובות למסמך היסטורי.</p>
+        <p>בפועל, העסק ממשיך להתנהל דרך דוחות, פגישות, יעדים ותחושת בטן. מה שחסר הוא החיבור בין מה שתכננו שיקרה לבין מה שקרה בפועל, ואיזו הנחה מסבירה את הפער.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">הגישה של Modelera</span>
+        <h2>מתחילים מהיעד ומפרקים אותו למה שצריך לקרות בדרך</h2>
+        <p>במקום להתחיל מהשורה התחתונה בלבד, בונים את ההיגיון שמאחוריה.</p>
+      </div>
+      <div class="cards approach-cards">
+        <div class="card">
+          <div class="idx">01</div>
+          <h3>יעד עסקי</h3>
+          <p>מגדירים לאן העסק רוצה להגיע, בהכנסות, לקוחות, משתמשים או מדד עסקי מרכזי אחר.</p>
+        </div>
+        <div class="card">
+          <div class="idx">02</div>
+          <h3>מנועי צמיחה</h3>
+          <p>מפרקים את היעד לרכישה, המרה, תמחור, שימור, שימוש והכנסות, בהתאם למודל העסקי.</p>
+        </div>
+        <div class="card">
+          <div class="idx">03</div>
+          <h3>הנחות</h3>
+          <p>מגדירים אילו הנחות חייבות להתקיים כדי שהתוכנית תעבוד, ואיפה נדרש נתון ייחוס או בדיקה נוספת.</p>
+        </div>
+        <div class="card">
+          <div class="idx">04</div>
+          <h3>מציאות והחלטה</h3>
+          <p>משווים את התכנון לביצועים בפועל, מזהים את הפער המשמעותי ביותר ומחליטים מה לשנות במודל או בפעילות.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap founder-grid">
+      <div class="founder-photo-wrap">
+        <img src="/avi-modelera-about.svg" alt="אבי הרשקו, מייסד Modelera" class="founder-photo" loading="lazy" />
+      </div>
+      <div class="founder-copy">
+        <span class="mono">מי עומד מאחורי Modelera</span>
+        <h2>ניסיון מעשי בצמיחה, שיווק ואסטרטגיה</h2>
+        <p><a href="https://avihershko.com/he/" target="_blank" rel="noopener noreferrer">אבי הרשקו</a> הוא יועץ אסטרטגי עסקי ושיווקי עם יותר מעשרים שנות ניסיון בעבודה עם חברות טכנולוגיה וסטארטאפים. בעבר כיהן כ VP Growth ב Vimeo וכ Head of Marketing ב Fiverr.</p>
+        <p>לאורך השנים עבדתי עם מייסדים וצוותי הנהלה על אסטרטגיה, שיווק, צמיחה, אנליטיקה ותכנון. אחד הדברים שחזרו שוב ושוב היה הפער בין התחזית לבין הדרך שבה העסק מתנהל בפועל.</p>
+        <p>Modelera נבנתה מתוך הניסיון הזה. המטרה היא לא לייצר עוד גיליון, אלא לבנות מסגרת ברורה שמחברת בין היעד, ההנחות והביצועים, ומאפשרת לקבל החלטות טובות יותר לאורך הדרך.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">איך אני עובד עם מייסדים</span>
+        <h2>מתחילים מהעסק, לא מהתבנית</h2>
+      </div>
+      <div class="work-steps">
+        <div class="work-step"><span>01</span><p>מבינים את היעד העסקי ואת המודל העסקי.</p></div>
+        <div class="work-step"><span>02</span><p>ממפים את מנועי הצמיחה וההנחות הקריטיות.</p></div>
+        <div class="work-step"><span>03</span><p>בונים מודל ראשוני ותרחישים שמראים מה צריך לקרות.</p></div>
+        <div class="work-step"><span>04</span><p>במידת הצורך ממשיכים להשוואה שוטפת מול הביצועים בפועל ולעדכון ההנחות.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="finalcta">
+        <h2>רוצים להבין מה צריך להיות נכון כדי שהסטארטאפ שלכם יגיע ליעד?</h2>
+        <p>אפשר להתחיל ממודל ראשוני, ובהמשך להפוך אותו לכלי עבודה שוטף לקבלת החלטות.</p>
+        <a class="btn btn-primary" href={localePath(lang, '/contact')}>בואו נבנה את מודל הצמיחה שלכם</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .about-hero{padding-top:72px}
+    .about-hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:48px;align-items:center}
+    .about-hero h1{font-size:clamp(42px,6vw,68px);line-height:1.05;letter-spacing:-.03em;margin:14px 0 22px;max-width:14ch}
+    .about-lead{font-size:21px;line-height:1.65;max-width:62ch;color:#2a2e38;margin-bottom:18px}
+    .about-support{font-size:17px;line-height:1.75;max-width:66ch;color:var(--muted)}
+    .hero-note{background:var(--paper-2,#f2f2ed);border-inline-start:3px solid var(--brand);border-radius:14px;padding:28px}
+    .hero-note p{font-size:16px;line-height:1.7;color:var(--muted)}
+    .hero-note strong{color:var(--ink);font-weight:600}
+    .support-label{display:block;font-family:var(--body);font-size:13px;font-weight:500;color:var(--brand);margin-bottom:12px}
+    .about-copy-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;max-width:980px}
+    .about-copy-grid p{font-size:18px;line-height:1.75;color:#30343e}
+    .approach-cards{grid-template-columns:repeat(4,1fr)}
+    .founder-grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:52px;align-items:start}
+    .founder-photo-wrap{width:240px}
+    .founder-photo{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 18%;border-radius:18px;border:1px solid var(--line);background:#fff}
+    .founder-copy{max-width:760px}
+    .founder-copy h2{font-size:clamp(30px,4vw,44px);line-height:1.15;margin:12px 0 20px}
+    .founder-copy p{font-size:17px;line-height:1.75;color:#30343e;margin-bottom:16px}
+    .founder-copy a{color:var(--brand);text-decoration:none}
+    .work-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .work-step{border-top:1px solid var(--line);padding-top:18px}
+    .work-step span{display:block;font-family:var(--mono);font-size:12px;color:var(--brand);margin-bottom:10px}
+    .work-step p{font-size:16px;line-height:1.6;color:#30343e}
+    @media(max-width:900px){
+      .about-hero-grid,.founder-grid,.about-copy-grid{grid-template-columns:1fr}
+      .approach-cards,.work-steps{grid-template-columns:1fr 1fr}
+      .founder-photo-wrap{width:210px}
+      .about-hero h1{max-width:none}
+    }
+    @media(max-width:620px){
+      .approach-cards,.work-steps{grid-template-columns:1fr}
+      .about-hero{padding-top:48px}
+      .founder-photo-wrap{width:190px}
+      .founder-grid{gap:28px}
+    }
+  </style>
 </Base>
