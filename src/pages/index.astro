@@ -2,42 +2,41 @@
 import Base from '../layouts/Base.astro';
 import GrowthLoop from '../components/GrowthLoop.astro';
 import { getCollection } from 'astro:content';
-import { useTranslations, localePath } from '../i18n/utils';
+import { localePath } from '../i18n/utils';
 
 const lang = 'en' as const;
-const t = useTranslations(lang);
-const arrow = '→';
 const posts = (await getCollection('blog', (p) => p.id.startsWith('en/') && !p.data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 
 const flowLabels = {
-  n1: t('flow.n1'), n2: t('flow.n2'), n3: t('flow.n3'), n4: t('flow.n4'),
-  center1: t('flow.center1'), center2: t('flow.center2'),
-  driversLabel: t('flow.drivers'),
-  drivers: [t('flow.d1'), t('flow.d2'), t('flow.d3'), t('flow.d4'), t('flow.d5')],
+  n1: 'Target', n2: 'Growth drivers', n3: 'Assumptions', n4: 'Decisions',
+  center1: 'Growth', center2: 'Model',
+  driversLabel: 'Core drivers',
+  drivers: ['Acquisition', 'Conversion', 'Pricing', 'Retention', 'Revenue'],
 };
-const strip = [t('strip.1'), t('strip.2'), t('strip.3'), t('strip.4'), t('strip.5')];
-const questions = [t('core.q1'), t('core.q2'), t('core.q3'), t('core.q4'), t('core.q5'), t('core.q6')];
-const funnel = [['af.1v','af.1l'],['af.2v','af.2l'],['af.3v','af.3l'],['af.4v','af.4l'],['af.5v','af.5l'],['af.6v','af.6l']] as const;
-const receive = ['rc.i1','rc.i2','rc.i3','rc.i4','rc.i5','rc.i6','rc.i7','rc.i8','rc.i9','rc.i10'] as const;
-const deckChain = ['pd.c1','pd.c2','pd.c3','pd.c4','pd.c5','pd.c6'] as const;
-const examples = [
-  { n: t('ex.1n'), flow: ['Leads','Opportunities','Customers','ACV','ARR'] },
-  { n: t('ex.2n'), flow: ['Traffic','Signup','Activation','Paid','Revenue'] },
-  { n: t('ex.3n'), flow: ['Traffic','Purchase','Subscription','Retention','Revenue'] },
-  { n: t('ex.4n'), flow: ['Supply + Demand','Match','Transaction','Take Rate','Revenue'] },
+
+const strip = ['Target', 'Growth drivers', 'Assumptions', 'Scenarios', 'Decisions'];
+const questions = [
+  'How many customers do you need to reach your revenue target?',
+  'How many leads or users are required to reach that customer target?',
+  'What conversion rate is needed at each stage?',
+  'What is a realistic CAC for the business?',
+  'What level of retention does the model require?',
+  'Which assumptions matter most to the plan?',
+  'What happens if one of those assumptions is wrong?',
 ];
 ---
-<Base lang={lang} path="/" title={`${t('site.title')} — ${t('site.tagline')}`} description={t('hero.lead')}>
+<Base lang={lang} path="/" title="Modelera, Growth Modeling for Startups" description="Growth modeling for startups, from the initial model to ongoing plan versus actual reviews, scenario analysis and growth decision support.">
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow"><span class="dot"></span><span class="mono">{t('hero.eyebrow')}</span></span>
-        <h1>{t('hero.h1a')} <span class="u">{t('hero.h1b')}</span>{t('hero.h1c')}</h1>
-        <p class="lead">{t('hero.lead')}</p>
+        <span class="eyebrow"><span class="dot"></span><span class="mono">Growth Modeling for Startups</span></span>
+        <h1>Know what needs to be true for your startup to <span class="u">grow</span></h1>
+        <p class="lead">A growth model connects a business target to what actually needs to happen across acquisition, conversion, pricing, retention and revenue.</p>
+        <p style="color:var(--muted);font-size:16px;max-width:58ch;margin:-12px 0 28px">I work with founders to build a growth model around their business. When useful, we continue with ongoing reviews that compare the model with actual performance, test scenarios and support better growth decisions.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href={localePath(lang, '/contact')}>{t('hero.cta1')}</a>
-          <a class="btn btn-ghost" href={localePath(lang, '/blog')}>{t('hero.cta2')}</a>
+          <a class="btn btn-primary" href={localePath(lang, '/contact')}>Build Your Growth Model</a>
+          <a class="btn btn-ghost" href="#services">See How It Works</a>
         </div>
       </div>
       <GrowthLoop labels={flowLabels} />
@@ -51,118 +50,122 @@ const examples = [
 
   <section class="block">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('core.eyebrow')}</span><h2>{t('core.h2')}</h2></div>
+      <div class="sec-head"><span class="mono">The Core Question</span><h2>What needs to be true to reach the target?</h2></div>
       <div class="corebox">
         <div>
-          <span class="target">{t('core.target')}</span>
-          <p style="color:var(--muted);margin-bottom:6px">{t('core.p')}</p>
+          <span class="target">Business Target</span>
+          <p style="color:var(--muted);margin-bottom:12px">A useful model breaks a business target into questions you can measure, test and update.</p>
           <ul class="qlist">{questions.map((q) => <li>{q}</li>)}</ul>
         </div>
-        <div><p class="keyline">{t('core.key')}</p></div>
+        <div><p class="keyline">The goal is not just to forecast the outcome. It is to understand which drivers and assumptions have to work for that outcome to become possible.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="block tinted">
+  <section class="block tinted" id="services">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('mo.eyebrow')}</span><h2>{t('mo.h2')}</h2></div>
-      <div class="cards">
-        <div class="card moment"><span class="tag">{t('mo.1tag')}</span><h3>{t('mo.1h')}</h3><p>{t('mo.1p')}</p><a class="cta" href={localePath(lang,'/contact')}>{t('mo.1cta')} →</a></div>
-        <div class="card moment"><span class="tag">{t('mo.2tag')}</span><h3>{t('mo.2h')}</h3><p>{t('mo.2p')}</p><a class="cta" href={localePath(lang,'/contact')}>{t('mo.2cta')} →</a></div>
-        <div class="card moment"><span class="tag">{t('mo.3tag')}</span><h3>{t('mo.3h')}</h3><p>{t('mo.3p')}</p><a class="cta" href={localePath(lang,'/contact')}>{t('mo.3cta')} →</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('how.eyebrow')}</span><h2>{t('how.h2')}</h2></div>
-      <div class="steps">
-        <div class="stepc"><div class="no">01</div><h3>{t('how.1h')}</h3><p>{t('how.1p')}</p></div>
-        <div class="stepc"><div class="no">02</div><h3>{t('how.2h')}</h3><p>{t('how.2p')}</p></div>
-        <div class="stepc"><div class="no">03</div><h3>{t('how.3h')}</h3><p>{t('how.3p')}</p></div>
-        <div class="stepc"><div class="no">04</div><h3>{t('how.4h')}</h3><p>{t('how.4p')}</p></div>
-        <div class="stepc"><div class="no">05</div><h3>{t('how.5h')}</h3><p>{t('how.5p')}</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block tinted">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('af.eyebrow')}</span><h2>{t('af.h2')}</h2><p>{t('af.p')}</p></div>
-      <div class="funnel">
-        {funnel.map(([v, l], i) => (<>
-          <div class="frow"><span class="fv">{t(v)}</span><span class="fl">{t(l)}</span></div>
-          {i < funnel.length - 1 && <div class="fdown">↓</div>}
-        </>))}
-      </div>
-      <div class="scenarios">
-        <div class="scenario">{t('sc.1')}</div>
-        <div class="scenario">{t('sc.2')}</div>
-        <div class="scenario">{t('sc.3')}</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('rc.eyebrow')}</span><h2>{t('rc.h2')}</h2><p>{t('rc.p')}</p></div>
-      <div class="receive">{receive.map((k) => <div class="ri">{t(k)}</div>)}</div>
-      <p class="recv-note">{t('rc.note')}</p>
-    </div>
-  </section>
-
-  <section class="block tinted">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('pd.eyebrow')}</span><h2>{t('pd.h2')}</h2><p>{t('pd.p')}</p></div>
-      <div class="deck">
-        <div>
-          <div class="mono" style="margin-bottom:10px">{t('pd.decklbl')}</div>
-          <div class="deck-badge">{t('pd.deck')}</div>
+      <div class="sec-head"><span class="mono">How We Can Work Together</span><h2>Two ways to work with Modelera</h2><p>Start with an initial growth model, or use it as an ongoing decision making tool.</p></div>
+      <div class="cards" style="grid-template-columns:repeat(2,1fr)">
+        <div class="card">
+          <div class="idx">01 · Growth Model Setup</div>
+          <h3>Initial Growth Model</h3>
+          <p>For founders who want to understand how their business target connects to the underlying growth drivers.</p>
+          <ul class="qlist" style="margin-top:18px">
+            <li>Define the business target</li>
+            <li>Map the growth drivers</li>
+            <li>Build the funnel or revenue model</li>
+            <li>Define assumptions and relevant benchmarks</li>
+            <li>Build scenarios and sensitivity analysis</li>
+            <li>Identify the metrics that matter most</li>
+          </ul>
+          <a class="more" href={localePath(lang,'/contact')}>Build my growth model →</a>
         </div>
-        <div class="chain">
-          {deckChain.map((k, i) => (<>
-            <div class="cc">{t(k)}</div>{i < deckChain.length - 1 && <div class="ca">↓</div>}
+        <div class="card">
+          <div class="idx">02 · Ongoing Growth Review</div>
+          <h3>Growth Model with Ongoing Support</h3>
+          <p>For companies that want to use the model as an operating tool, rather than leave it as a one time planning exercise.</p>
+          <ul class="qlist" style="margin-top:18px">
+            <li>Weekly or monthly review</li>
+            <li>Actual versus model</li>
+            <li>Variance analysis and assumption updates</li>
+            <li>Scenario testing</li>
+            <li>Identify growth bottlenecks</li>
+            <li>Prioritize growth levers and support decisions</li>
+          </ul>
+          <a class="more" href={localePath(lang,'/contact')}>Discuss ongoing support →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">The Model Is Only the Starting Point</span><h2>A growth model that is not tested against reality quickly becomes a historical document</h2><p>The real value comes from using the model repeatedly to understand what changed, what is constraining growth and what to do next.</p></div>
+      <div class="flowstrip" style="margin-top:0;border:1px solid var(--line);border-radius:16px;overflow:hidden">
+        <div class="wrap flowstrip-inner" style="max-width:none">
+          {['Plan','Actual','Variance','Scenario','Decision','Updated model'].map((s, i, arr) => (<>
+            <span class="step">{s}</span>{i < arr.length - 1 && <span class="arr">→</span>}
           </>))}
         </div>
       </div>
-      <div style="margin-top:24px"><a class="btn btn-primary" href={localePath(lang,'/contact')}>{t('pd.cta')}</a></div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('vs.eyebrow')}</span><h2>{t('vs.h2')}</h2></div>
-      <div class="vs">
-        <div class="vscard"><span class="vk">{t('vs.fintitle')}</span><p class="vq">{t('vs.finq')}</p></div>
-        <div class="vscard accent"><span class="vk">{t('vs.growtitle')}</span><p class="vq">{t('vs.growq')}</p></div>
+      <div class="corebox" style="margin-top:28px">
+        <div>
+          <span class="target">Example</span>
+          <p style="font-size:18px;font-weight:600;margin-bottom:16px">Revenue is 15% below plan.</p>
+          <ul class="qlist">
+            <li>Traffic is above forecast</li>
+            <li>Conversion is below forecast</li>
+            <li>Retention is on plan</li>
+          </ul>
+        </div>
+        <div>
+          <p class="keyline">Conclusion: acquisition is not the main problem. Conversion is currently the bigger constraint.</p>
+          <p style="color:var(--muted);margin-top:16px">Decision: test ways to improve conversion before increasing acquisition spend.</p>
+        </div>
       </div>
-      <p class="vs-note">{t('vs.note')}</p>
     </div>
   </section>
 
   <section class="block tinted">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('ex.eyebrow')}</span><h2>{t('ex.h2')}</h2></div>
-      <div class="examples">
-        {examples.map((ex) => (
-          <div class="exrow">
-            <span class="exname">{ex.n}</span>
-            <div class="exflow">
-              {ex.flow.map((n, i) => (<>
-                <span class="en">{n}</span>{i < ex.flow.length - 1 && <span class="ea">{arrow}</span>}
-              </>))}
-            </div>
-          </div>
-        ))}
+      <div class="sec-head"><span class="mono">When It Is Useful</span><h2>A growth model supports different stages of a startup</h2></div>
+      <div class="cards">
+        <div class="card moment"><span class="tag">Before launch</span><h3>When there is no real performance data yet</h3><p>The model relies more heavily on assumptions and relevant benchmarks to test whether the target is realistic and what needs to happen along the way.</p></div>
+        <div class="card moment"><span class="tag">Fundraising</span><h3>Show how the company gets to the target</h3><p>The model helps explain not only the revenue forecast, but also the growth drivers and assumptions behind it.</p></div>
+        <div class="card moment"><span class="tag">After launch</span><h3>Replace assumptions with actual performance</h3><p>This is where the model becomes more valuable. You can compare plan with reality, identify variances, update assumptions and make better decisions.</p></div>
       </div>
-      <p class="ex-note">{t('ex.note')}</p>
     </div>
   </section>
 
   <section class="block">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('ins.eyebrow')}</span><h2>{t('ins.h2')}</h2></div>
+      <div class="sec-head"><span class="mono">Growth Model ≠ Financial Model</span><h2>A growth model is not a financial model</h2></div>
+      <div class="vs">
+        <div class="vscard"><span class="vk">Financial model</span><p class="vq">What will revenue, costs and cash flow look like?</p></div>
+        <div class="vscard accent"><span class="vk">Growth model</span><p class="vq">What actually needs to happen for that revenue to exist?</p></div>
+      </div>
+      <p class="vs-note">The model connects customer acquisition, conversion, pricing, retention and other growth drivers to the business target.</p>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Who Is Behind Modelera</span><h2>Built from hands on experience in growth, marketing and strategy</h2></div>
+      <div class="corebox">
+        <div>
+          <p style="font-size:18px;line-height:1.7">Modelera is built from hands on experience working with technology companies and startups. Avi Hershko is a business and marketing strategy advisor with more than 20 years of experience, and previously served as VP Growth at Vimeo and Head of Marketing at Fiverr.</p>
+        </div>
+        <div>
+          <p class="keyline">The approach is business and growth first. The goal is to understand how customer acquisition, conversion, pricing, retention and other growth drivers connect to the target.</p>
+          <div style="margin-top:22px"><a class="btn btn-ghost" href={localePath(lang,'/about')}>More about Avi and the Modelera approach</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Insights</span><h2>Growth modeling, assumptions, benchmarks and decision making</h2></div>
       <div class="cards">
         {posts.map((post) => {
           const slug = post.id.replace(/^en\//, '').replace(/\.md$/, '');
@@ -170,7 +173,7 @@ const examples = [
             <a class="card" href={localePath(lang, `/blog/${slug}`)}>
               <div class="idx">{post.data.kind} · {post.data.readMins} min</div>
               <h3>{post.data.title}</h3><p>{post.data.description}</p>
-              <span class="more">{t('read')} →</span>
+              <span class="more">Read more →</span>
             </a>);
         })}
       </div>
@@ -180,8 +183,9 @@ const examples = [
   <section class="block">
     <div class="wrap">
       <div class="finalcta">
-        <h2>{t('fin.h2')}</h2><p>{t('fin.p')}</p>
-        <a class="btn btn-primary" href={localePath(lang,'/contact')}>{t('fin.cta')}</a>
+        <h2>Do not build a forecast just to show where you want to go</h2>
+        <p>Build a model that shows what needs to happen to get there. Then keep testing it against reality.</p>
+        <a class="btn btn-primary" href={localePath(lang,'/contact')}>Build Your Growth Model</a>
       </div>
     </div>
   </section>
