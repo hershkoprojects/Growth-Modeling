@@ -17,8 +17,83 @@ const lang = 'he' as const;
 const t = useTranslations(lang);
 const slug = post.id.replace(/^he\//, '').replace(/\.md$/, '');
 const date = post.data.pubDate.toLocaleDateString('he-IL', { year: 'numeric', month: 'long', day: 'numeric' });
+const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://modelera.io';
+const canonical = `${site}/he/blog/${slug}`;
+const allPosts = await getCollection('blog');
+const hasEnglishVersion = allPosts.some((p) => p.id === `en/${slug}.md` || p.id === `en/${slug}`);
+
+const faqBySlug: Record<string, Array<{ question: string; answer: string }>> = {
+  'startup-economic-model': [
+    {
+      question: 'מהו מודל כלכלי לסטארטאפים?',
+      answer: 'מודל כלכלי לסטארטאפ הוא המבנה המוצרי והפיננסי שמגדיר כיצד החברה מייצרת ערך ללקוחות, כיצד היא גובה תשלום, ובאיזה מבנה עלויות הפעילות יכולה להפוך לעסק רווחי.',
+    },
+    {
+      question: 'איך בוחרים מודל כלכלי נכון לסטארטאפ בשלב מוקדם?',
+      answer: 'בוחרים מודל לפי הרגלי הרכישה בתעשייה, סוג המוצר, סוג הלקוח והיכולת להגיע ל Unit Economics חיוביים. בשלבים הראשונים עדיף להתמקד במודל אחד פשוט וברור לפני שמוסיפים שכבות נוספות.',
+    },
+    {
+      question: 'מהו יחס LTV ל CAC מומלץ במודל כלכלי של סטארטאפ?',
+      answer: 'בכתבה משמש יחס של 3:1 ומעלה כנקודת ייחוס. כלומר, ערך חיי הלקוח צריך להיות גבוה לפחות פי שלושה מעלות גיוסו. יחס נמוך יותר עשוי להצביע על בעיה בתמחור, בשימור או ביעילות הרכישה.',
+    },
+  ],
+};
+
+const faqs = faqBySlug[slug] ?? [];
+const image = post.data.image ? (post.data.image.startsWith('http') ? post.data.image : `${site}${post.data.image}`) : `${site}/og-default.png`;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      headline: post.data.title,
+      description: post.data.description,
+      inLanguage: 'he-IL',
+      datePublished: post.data.pubDate.toISOString(),
+      dateModified: post.data.pubDate.toISOString(),
+      image: [image],
+      mainEntityOfPage: canonical,
+      author: {
+        '@type': 'Person',
+        name: 'אבי הרשקו',
+        url: 'https://avihershko.com/he/',
+      },
+      publisher: {
+        '@type': 'Organization',
+        name: 'Modelera',
+        url: site,
+      },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Modelera', item: `${site}/he/` },
+        { '@type': 'ListItem', position: 2, name: 'בלוג', item: `${site}/he/blog` },
+        { '@type': 'ListItem', position: 3, name: post.data.title, item: canonical },
+      ],
+    },
+    ...(faqs.length ? [{
+      '@type': 'FAQPage',
+      mainEntity: faqs.map((faq) => ({
+        '@type': 'Question',
+        name: faq.question,
+        acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+      })),
+    }] : []),
+  ],
+};
 ---
-<Base lang={lang} path={`/blog/${slug}`} title={`${post.data.title} — ${t('site.title')}`} description={post.data.description}>
+<Base
+  lang={lang}
+  path={`/blog/${slug}`}
+  title={`${post.data.title} | Modelera`}
+  description={post.data.description}
+  image={post.data.image}
+  type="article"
+  hasAlternate={hasEnglishVersion}
+>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <article class="article">
     <div class="meta">
       <a href={localePath(lang, '/blog')} class="mono">{t('back')}</a>
