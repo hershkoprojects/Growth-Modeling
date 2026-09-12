@@ -93,7 +93,7 @@ const structuredData = {
   type="article"
   hasAlternate={hasEnglishVersion}
 >
-  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(structuredData)}></script>
   <article class="article">
     <div class="meta">
       <a href={localePath(lang, '/blog')} class="mono">{t('back')}</a>
