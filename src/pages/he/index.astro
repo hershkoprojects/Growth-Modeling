@@ -2,42 +2,41 @@
 import Base from '../../layouts/Base.astro';
 import GrowthLoop from '../../components/GrowthLoop.astro';
 import { getCollection } from 'astro:content';
-import { useTranslations, localePath } from '../../i18n/utils';
+import { localePath } from '../../i18n/utils';
 
 const lang = 'he' as const;
-const t = useTranslations(lang);
-const arrow = '←';
 const posts = (await getCollection('blog', (p) => p.id.startsWith('he/') && !p.data.draft))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 3);
 
 const flowLabels = {
-  n1: t('flow.n1'), n2: t('flow.n2'), n3: t('flow.n3'), n4: t('flow.n4'),
-  center1: t('flow.center1'), center2: t('flow.center2'),
-  driversLabel: t('flow.drivers'),
-  drivers: [t('flow.d1'), t('flow.d2'), t('flow.d3'), t('flow.d4'), t('flow.d5')],
+  n1: 'יעד', n2: 'מנועי צמיחה', n3: 'הנחות', n4: 'החלטות',
+  center1: 'מודל', center2: 'צמיחה',
+  driversLabel: 'מנועים מרכזיים',
+  drivers: ['רכישה', 'המרה', 'תמחור', 'שימור', 'הכנסות'],
 };
-const strip = [t('strip.1'), t('strip.2'), t('strip.3'), t('strip.4'), t('strip.5')];
-const questions = [t('core.q1'), t('core.q2'), t('core.q3'), t('core.q4'), t('core.q5'), t('core.q6')];
-const funnel = [['af.1v','af.1l'],['af.2v','af.2l'],['af.3v','af.3l'],['af.4v','af.4l'],['af.5v','af.5l'],['af.6v','af.6l']] as const;
-const receive = ['rc.i1','rc.i2','rc.i3','rc.i4','rc.i5','rc.i6','rc.i7','rc.i8','rc.i9','rc.i10'] as const;
-const deckChain = ['pd.c1','pd.c2','pd.c3','pd.c4','pd.c5','pd.c6'] as const;
-const examples = [
-  { n: t('ex.1n'), flow: ['Leads','Opportunities','Customers','ACV','ARR'] },
-  { n: t('ex.2n'), flow: ['Traffic','Signup','Activation','Paid','Revenue'] },
-  { n: t('ex.3n'), flow: ['Traffic','Purchase','Subscription','Retention','Revenue'] },
-  { n: t('ex.4n'), flow: ['Supply + Demand','Match','Transaction','Take Rate','Revenue'] },
+
+const strip = ['יעד', 'מנועי צמיחה', 'הנחות', 'תרחישים', 'החלטות'];
+const questions = [
+  'כמה לקוחות צריך כדי להגיע ליעד ההכנסות?',
+  'כמה לידים או משתמשים צריך כדי להגיע לכמות הלקוחות הזאת?',
+  'איזה שיעור המרה צריך בכל שלב?',
+  'מהו CAC סביר עבור העסק?',
+  'איזה retention נדרש כדי שהמודל יחזיק?',
+  'אילו הנחות הן הקריטיות ביותר להצלחת התוכנית?',
+  'מה יקרה אם אחת ההנחות לא תתממש?',
 ];
 ---
-<Base lang={lang} path="/" title={`${t('site.title')} — ${t('site.tagline')}`} description={t('meta.home')}>
+<Base lang={lang} path="/" title="Modelera — מודל צמיחה לסטארטאפים" description="בניית מודל צמיחה לסטארטאפים וליווי שוטף להשוואת מודל מול ביצועים, בדיקת תרחישים וקבלת החלטות צמיחה.">
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow"><span class="dot"></span><span class="mono">{t('hero.eyebrow')}</span></span>
-        <h1>{t('hero.h1a')} <span class="u">{t('hero.h1b')}</span>{t('hero.h1c')}</h1>
-        <p class="lead">{t('hero.lead')}</p>
+        <span class="eyebrow"><span class="dot"></span><span class="mono">Growth Modeling for Startups</span></span>
+        <h1>לדעת מה צריך לקרות כדי שהסטארטאפ יוכל <span class="u">לצמוח</span></h1>
+        <p class="lead">מודל צמיחה מחבר בין יעד עסקי לבין מה שבאמת צריך לקרות בדרך: רכישה, המרה, תמחור, שימור והכנסות.</p>
+        <p style="color:var(--muted);font-size:16px;max-width:58ch;margin:-12px 0 28px">אני עובד עם יזמים ומייסדים על בניית מודל צמיחה שמתאים לעסק שלהם — ובמידת הצורך גם על תהליך שוטף של השוואת המודל לביצועים בפועל, בדיקת תרחישים וקבלת החלטות.</p>
         <div class="cta-row">
-          <a class="btn btn-primary" href={localePath(lang, '/contact')}>{t('hero.cta1')}</a>
-          <a class="btn btn-ghost" href={localePath(lang, '/blog')}>{t('hero.cta2')}</a>
+          <a class="btn btn-primary" href={localePath(lang, '/contact')}>בואו נבנה את מודל הצמיחה שלכם</a>
+          <a class="btn btn-ghost" href="#services">איך זה עובד</a>
         </div>
       </div>
       <GrowthLoop labels={flowLabels} />
@@ -51,118 +50,122 @@ const examples = [
 
   <section class="block">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('core.eyebrow')}</span><h2>{t('core.h2')}</h2></div>
+      <div class="sec-head"><span class="mono">השאלה המרכזית</span><h2>מה חייב להיות נכון כדי להגיע ליעד?</h2></div>
       <div class="corebox">
         <div>
-          <span class="target">{t('core.target')}</span>
-          <p style="color:var(--muted);margin-bottom:6px">{t('core.p')}</p>
+          <span class="target">יעד עסקי</span>
+          <p style="color:var(--muted);margin-bottom:12px">מודל טוב מפרק יעד עסקי לשאלות שאפשר למדוד, לבדוק ולעדכן.</p>
           <ul class="qlist">{questions.map((q) => <li>{q}</li>)}</ul>
         </div>
-        <div><p class="keyline">{t('core.key')}</p></div>
+        <div><p class="keyline">המטרה היא לא רק לחזות את התוצאה — אלא להבין אילו מנועים והנחות צריכים לעבוד כדי שהתוצאה תהיה אפשרית.</p></div>
       </div>
     </div>
   </section>
 
-  <section class="block tinted">
+  <section class="block tinted" id="services">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('mo.eyebrow')}</span><h2>{t('mo.h2')}</h2></div>
-      <div class="cards">
-        <div class="card moment"><span class="tag">{t('mo.1tag')}</span><h3>{t('mo.1h')}</h3><p>{t('mo.1p')}</p><a class="cta" href={localePath(lang,'/contact')}>{t('mo.1cta')} →</a></div>
-        <div class="card moment"><span class="tag">{t('mo.2tag')}</span><h3>{t('mo.2h')}</h3><p>{t('mo.2p')}</p><a class="cta" href={localePath(lang,'/contact')}>{t('mo.2cta')} →</a></div>
-        <div class="card moment"><span class="tag">{t('mo.3tag')}</span><h3>{t('mo.3h')}</h3><p>{t('mo.3p')}</p><a class="cta" href={localePath(lang,'/contact')}>{t('mo.3cta')} →</a></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('how.eyebrow')}</span><h2>{t('how.h2')}</h2></div>
-      <div class="steps">
-        <div class="stepc"><div class="no">01</div><h3>{t('how.1h')}</h3><p>{t('how.1p')}</p></div>
-        <div class="stepc"><div class="no">02</div><h3>{t('how.2h')}</h3><p>{t('how.2p')}</p></div>
-        <div class="stepc"><div class="no">03</div><h3>{t('how.3h')}</h3><p>{t('how.3p')}</p></div>
-        <div class="stepc"><div class="no">04</div><h3>{t('how.4h')}</h3><p>{t('how.4p')}</p></div>
-        <div class="stepc"><div class="no">05</div><h3>{t('how.5h')}</h3><p>{t('how.5p')}</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block tinted">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('af.eyebrow')}</span><h2>{t('af.h2')}</h2><p>{t('af.p')}</p></div>
-      <div class="funnel">
-        {funnel.map(([v, l], i) => (<>
-          <div class="frow"><span class="fv">{t(v)}</span><span class="fl">{t(l)}</span></div>
-          {i < funnel.length - 1 && <div class="fdown">↓</div>}
-        </>))}
-      </div>
-      <div class="scenarios">
-        <div class="scenario">{t('sc.1')}</div>
-        <div class="scenario">{t('sc.2')}</div>
-        <div class="scenario">{t('sc.3')}</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('rc.eyebrow')}</span><h2>{t('rc.h2')}</h2><p>{t('rc.p')}</p></div>
-      <div class="receive">{receive.map((k) => <div class="ri">{t(k)}</div>)}</div>
-      <p class="recv-note">{t('rc.note')}</p>
-    </div>
-  </section>
-
-  <section class="block tinted">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('pd.eyebrow')}</span><h2>{t('pd.h2')}</h2><p>{t('pd.p')}</p></div>
-      <div class="deck">
-        <div>
-          <div class="mono" style="margin-bottom:10px">{t('pd.decklbl')}</div>
-          <div class="deck-badge">{t('pd.deck')}</div>
+      <div class="sec-head"><span class="mono">איך עובדים יחד</span><h2>שתי דרכים לעבוד עם Modelera</h2><p>אפשר להתחיל ממודל ראשוני בלבד, או להפוך אותו לכלי עבודה שוטף לקבלת החלטות.</p></div>
+      <div class="cards" style="grid-template-columns:repeat(2,1fr)">
+        <div class="card">
+          <div class="idx">01 · Growth Model Setup</div>
+          <h3>מודל צמיחה ראשוני</h3>
+          <p>מתאים ליזמים שרוצים להבין איך היעד העסקי שלהם מתחבר בפועל למנועי הצמיחה.</p>
+          <ul class="qlist" style="margin-top:18px">
+            <li>הגדרת יעד עסקי</li>
+            <li>מיפוי מנועי הצמיחה</li>
+            <li>בניית funnel או revenue model</li>
+            <li>הגדרת assumptions ו-benchmarks</li>
+            <li>בניית תרחישים וניתוח רגישות</li>
+            <li>זיהוי ה-metrics הקריטיים</li>
+          </ul>
+          <a class="more" href={localePath(lang,'/contact')}>אני רוצה לבנות מודל ←</a>
         </div>
-        <div class="chain">
-          {deckChain.map((k, i) => (<>
-            <div class="cc">{t(k)}</div>{i < deckChain.length - 1 && <div class="ca">↓</div>}
+        <div class="card">
+          <div class="idx">02 · Ongoing Growth Review</div>
+          <h3>מודל צמיחה + ליווי שוטף</h3>
+          <p>מתאים לחברות שרוצות להשתמש במודל ככלי עבודה, ולא להשאיר אותו כתוכנית חד־פעמית.</p>
+          <ul class="qlist" style="margin-top:18px">
+            <li>פגישה שבועית או חודשית</li>
+            <li>Actual vs. Model</li>
+            <li>ניתוח פערים ועדכון assumptions</li>
+            <li>בדיקת תרחישים</li>
+            <li>זיהוי צווארי בקבוק</li>
+            <li>תעדוף מנועי צמיחה ותמיכה בהחלטות</li>
+          </ul>
+          <a class="more" href={localePath(lang,'/contact')}>אני רוצה ליווי שוטף ←</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">המודל הוא רק ההתחלה</span><h2>מודל צמיחה שלא מתעדכן מול המציאות הופך מהר מאוד למסמך היסטורי</h2><p>המטרה היא להשתמש במודל באופן שוטף כדי להבין מה השתנה, מה באמת מגביל את הצמיחה ומה כדאי לעשות עכשיו.</p></div>
+      <div class="flowstrip" style="margin-top:0;border:1px solid var(--line);border-radius:16px;overflow:hidden">
+        <div class="wrap flowstrip-inner" style="max-width:none">
+          {['תכנון','ביצוע בפועל','פער','תרחיש','החלטה','מודל מעודכן'].map((s, i, arr) => (<>
+            <span class="step">{s}</span>{i < arr.length - 1 && <span class="arr">→</span>}
           </>))}
         </div>
       </div>
-      <div style="margin-top:24px"><a class="btn btn-primary" href={localePath(lang,'/contact')}>{t('pd.cta')}</a></div>
-    </div>
-  </section>
-
-  <section class="block">
-    <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('vs.eyebrow')}</span><h2>{t('vs.h2')}</h2></div>
-      <div class="vs">
-        <div class="vscard"><span class="vk">{t('vs.fintitle')}</span><p class="vq">{t('vs.finq')}</p></div>
-        <div class="vscard accent"><span class="vk">{t('vs.growtitle')}</span><p class="vq">{t('vs.growq')}</p></div>
+      <div class="corebox" style="margin-top:28px">
+        <div>
+          <span class="target">דוגמה</span>
+          <p style="font-size:18px;font-weight:600;margin-bottom:16px">ההכנסות נמוכות ב־15% מהתכנון.</p>
+          <ul class="qlist">
+            <li>Traffic מעל התחזית</li>
+            <li>Conversion מתחת לתחזית</li>
+            <li>Retention בהתאם לתחזית</li>
+          </ul>
+        </div>
+        <div>
+          <p class="keyline">המסקנה: הבעיה כרגע אינה acquisition אלא conversion.</p>
+          <p style="color:var(--muted);margin-top:16px">החלטה: לבדוק מהלך לשיפור ההמרה לפני הגדלת תקציב השיווק.</p>
+        </div>
       </div>
-      <p class="vs-note">{t('vs.note')}</p>
     </div>
   </section>
 
   <section class="block tinted">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('ex.eyebrow')}</span><h2>{t('ex.h2')}</h2></div>
-      <div class="examples">
-        {examples.map((ex) => (
-          <div class="exrow">
-            <span class="exname">{ex.n}</span>
-            <div class="exflow">
-              {ex.flow.map((n, i) => (<>
-                <span class="en">{n}</span>{i < ex.flow.length - 1 && <span class="ea">{arrow}</span>}
-              </>))}
-            </div>
-          </div>
-        ))}
+      <div class="sec-head"><span class="mono">מתי זה שימושי</span><h2>מודל צמיחה מתאים לשלבים שונים בחיי הסטארטאפ</h2></div>
+      <div class="cards">
+        <div class="card moment"><span class="tag">לפני השקה</span><h3>כשאין עדיין דאטה אמיתי</h3><p>המודל נשען יותר על assumptions ועל benchmarks רלוונטיים כדי לבדוק האם היעד העסקי ריאלי ומה חייב לקרות בדרך.</p></div>
+        <div class="card moment"><span class="tag">בשלב גיוס</span><h3>להראות איך מגיעים ליעד</h3><p>המודל עוזר להציג לא רק תחזית הכנסות, אלא גם את מנועי הצמיחה וההנחות שמאחוריה.</p></div>
+        <div class="card moment"><span class="tag">לאחר ההשקה</span><h3>להחליף הנחות בביצועים אמיתיים</h3><p>כאן הערך עולה: אפשר להשוות מודל מול מציאות, לזהות variance, לעדכן assumptions ולקבל החלטות טובות יותר.</p></div>
       </div>
-      <p class="ex-note">{t('ex.note')}</p>
     </div>
   </section>
 
   <section class="block">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">{t('ins.eyebrow')}</span><h2>{t('ins.h2')}</h2></div>
+      <div class="sec-head"><span class="mono">Growth Model ≠ Financial Model</span><h2>מודל צמיחה אינו מודל פיננסי</h2></div>
+      <div class="vs">
+        <div class="vscard"><span class="vk">מודל פיננסי</span><p class="vq">מה יהיו ההכנסות, ההוצאות ותזרים המזומנים?</p></div>
+        <div class="vscard accent"><span class="vk">מודל צמיחה</span><p class="vq">מה בפועל צריך לקרות כדי שההכנסות האלה יתקיימו?</p></div>
+      </div>
+      <p class="vs-note">המודל מחבר בין רכישה, המרה, תמחור, שימור ומנועי צמיחה נוספים לבין היעד העסקי.</p>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">מי עומד מאחורי Modelera</span><h2>ניסיון מעשי בצמיחה, שיווק ואסטרטגיה</h2></div>
+      <div class="corebox">
+        <div>
+          <p style="font-size:18px;line-height:1.7">Modelera נבנתה מתוך ניסיון מעשי בעבודה עם חברות טכנולוגיה וסטארטאפים. אבי הרשקו הוא יועץ אסטרטגי עסקי ושיווקי עם יותר מ־20 שנות ניסיון, לשעבר VP Growth ב־Vimeo ו־Head of Marketing ב־Fiverr.</p>
+        </div>
+        <div>
+          <p class="keyline">הגישה למודל היא קודם כל עסקית ותפעולית: להבין איך acquisition, conversion, pricing, retention ומנועי צמיחה נוספים מתחברים ליעד.</p>
+          <div style="margin-top:22px"><a class="btn btn-ghost" href={localePath(lang,'/about')}>עוד על אבי והגישה של Modelera</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head"><span class="mono">Insights</span><h2>תוכן על Growth Modeling, הנחות, Benchmarks וקבלת החלטות</h2></div>
       <div class="cards">
         {posts.map((post) => {
           const slug = post.id.replace(/^he\//, '').replace(/\.md$/, '');
@@ -170,7 +173,7 @@ const examples = [
             <a class="card" href={localePath(lang, `/blog/${slug}`)}>
               <div class="idx">{post.data.kind} · {post.data.readMins} דק׳</div>
               <h3>{post.data.title}</h3><p>{post.data.description}</p>
-              <span class="more">{t('read')} →</span>
+              <span class="more">לקריאה ←</span>
             </a>);
         })}
       </div>
@@ -180,8 +183,9 @@ const examples = [
   <section class="block">
     <div class="wrap">
       <div class="finalcta">
-        <h2>{t('fin.h2')}</h2><p>{t('fin.p')}</p>
-        <a class="btn btn-primary" href={localePath(lang,'/contact')}>{t('fin.cta')}</a>
+        <h2>אל תבנו תחזית רק כדי להראות לאן אתם רוצים להגיע</h2>
+        <p>בנו מודל שמראה מה צריך לקרות כדי להגיע לשם — ולאחר מכן בדקו אותו מול המציאות.</p>
+        <a class="btn btn-primary" href={localePath(lang,'/contact')}>בואו נבנה את מודל הצמיחה שלכם</a>
       </div>
     </div>
   </section>
