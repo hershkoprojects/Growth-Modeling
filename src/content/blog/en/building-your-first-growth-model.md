@@ -4,8 +4,12 @@ description: "A step-by-step walk from a blank sheet to a working model you can 
 pubDate: 2026-02-10
 kind: "Guide"
 readMins: 12
+image: "/building-your-first-growth-model.svg"
+imageAlt: "Building your first growth model with a simple growth system illustration"
 draft: false
 ---
+
+![Building your first growth model with a simple growth system illustration](/building-your-first-growth-model.svg)
 
 Most people think a growth model is a spreadsheet. It isn't. A spreadsheet is where the model *lives* — but the model itself is a set of relationships: how one number turns into the next.
 
