@@ -10,8 +10,10 @@ interface Props {
   description: string;
   lang: Lang;
   path?: string;
+  image?: string;
+  type?: 'website' | 'article';
 }
-const { title, description, lang, path = '/' } = Astro.props;
+const { title, description, lang, path = '/', image, type = 'website' } = Astro.props;
 const dir = lang === 'he' ? 'rtl' : 'ltr';
 ---
 <!doctype html>
@@ -23,7 +25,8 @@ const dir = lang === 'he' ? 'rtl' : 'ltr';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <SEO title={title} description={description} lang={lang} path={path} />
+    <SEO title={title} description={description} lang={lang} path={path} image={image} type={type} />
+    <slot name="head" />
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>
