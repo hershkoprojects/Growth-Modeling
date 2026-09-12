@@ -175,7 +175,8 @@ const questions = [
         {posts.map((post) => {
           const slug = post.id.replace(/^en\//, '').replace(/\.md$/, '');
           return (
-            <a class="card" href={localePath(lang, `/blog/${slug}`)}>
+            <a class="card insight-card" href={localePath(lang, `/blog/${slug}`)}>
+              {post.data.image && <img src={post.data.image} alt={post.data.imageAlt ?? post.data.title} class="insight-card-img" loading="lazy" />}
               <div class="idx">{post.data.kind} · {post.data.readMins} min</div>
               <h3>{post.data.title}</h3><p>{post.data.description}</p>
               <span class="more">Read more →</span>
@@ -208,6 +209,8 @@ const questions = [
     .about-lower{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;border-top:1px solid var(--line);margin-top:28px;padding-top:24px}
     .about-note{max-width:62ch}
     .about-note p{font-size:16px;line-height:1.65;color:var(--muted)}
+    .insight-card{overflow:hidden}
+    .insight-card-img{width:calc(100% + 52px);max-width:none;aspect-ratio:16/9;object-fit:cover;display:block;margin:-26px -26px 22px}
     @media(max-width:860px){
       .about-lower{align-items:flex-start;flex-direction:column;gap:20px}
       .support-note{padding:22px}
