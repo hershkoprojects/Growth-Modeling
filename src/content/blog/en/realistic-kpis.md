@@ -4,8 +4,12 @@ description: "Unrealistic targets don't just miss — they hide the levers that 
 pubDate: 2026-08-28
 kind: "Guide"
 readMins: 8
+image: "/realistic-kpis.svg"
+imageAlt: "Why realistic KPIs make or break your Growth Model"
 draft: false
 ---
+
+![Why realistic KPIs make or break your Growth Model](/realistic-kpis.svg)
 
 A growth model is only as useful as the assumptions inside it. And the fastest way to make a model worthless is to fill it with KPIs no business has ever actually hit — "10× user growth every month, forever," or "CAC payback in one month with no marketing spend."
 
