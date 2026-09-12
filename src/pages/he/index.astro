@@ -21,7 +21,7 @@ const questions = [
   'כמה לידים או משתמשים צריך כדי להגיע לכמות הלקוחות הזאת?',
   'איזה שיעור המרה צריך בכל שלב?',
   'מהו CAC סביר עבור העסק?',
-  'איזה retention נדרש כדי שהמודל יחזיק?',
+  'איזה שיעור שימור נדרש כדי שהמודל יחזיק לאורך זמן?',
   'אילו הנחות הן הקריטיות ביותר להצלחת התוכנית?',
   'מה יקרה אם אחת ההנחות לא תתממש?',
 ];
@@ -30,7 +30,7 @@ const questions = [
   <section class="hero">
     <div class="wrap hero-grid">
       <div>
-        <span class="eyebrow"><span class="dot"></span><span class="mono">Growth Modeling for Startups</span></span>
+        <span class="eyebrow"><span class="dot"></span><span class="mono">מודל צמיחה לסטארטאפים</span></span>
         <h1>לדעת מה צריך לקרות כדי שהסטארטאפ יוכל <span class="u">לצמוח</span></h1>
         <p class="lead">מודל צמיחה מחבר בין יעד עסקי לבין מה שבאמת צריך לקרות בדרך: רכישה, המרה, תמחור, שימור והכנסות.</p>
         <p style="color:var(--muted);font-size:16px;max-width:58ch;margin:-12px 0 28px">אני עובד עם יזמים ומייסדים על בניית מודל צמיחה שמתאים לעסק שלהם. במידת הצורך אפשר להמשיך גם לתהליך שוטף של השוואת המודל לביצועים בפועל, בדיקת תרחישים וקבלת החלטות.</p>
@@ -57,7 +57,7 @@ const questions = [
           <p style="color:var(--muted);margin-bottom:12px">מודל טוב מפרק יעד עסקי לשאלות שאפשר למדוד, לבדוק ולעדכן.</p>
           <ul class="qlist">{questions.map((q) => <li>{q}</li>)}</ul>
         </div>
-        <div><p class="keyline">המטרה היא לא רק לחזות את התוצאה, אלא להבין אילו מנועים והנחות צריכים לעבוד כדי שהתוצאה תהיה אפשרית.</p></div>
+        <div><p class="keyline" style="font-size:clamp(18px,2.1vw,23px);line-height:1.5;max-width:34ch;margin-top:18px">המטרה אינה רק לחזות את התוצאה. המטרה היא להבין אילו מנועים והנחות צריכים לעבוד כדי שהתוצאה תהיה אפשרית.</p></div>
       </div>
     </div>
   </section>
@@ -67,27 +67,27 @@ const questions = [
       <div class="sec-head"><span class="mono">איך עובדים יחד</span><h2>שתי דרכים לעבוד עם Modelera</h2><p>אפשר להתחיל ממודל ראשוני בלבד, או להפוך אותו לכלי עבודה שוטף לקבלת החלטות.</p></div>
       <div class="cards" style="grid-template-columns:repeat(2,1fr)">
         <div class="card">
-          <div class="idx">01 · Growth Model Setup</div>
+          <div class="idx">01 · בניית מודל צמיחה</div>
           <h3>מודל צמיחה ראשוני</h3>
           <p>מתאים ליזמים שרוצים להבין איך היעד העסקי שלהם מתחבר בפועל למנועי הצמיחה.</p>
           <ul class="qlist" style="margin-top:18px">
             <li>הגדרת יעד עסקי</li>
             <li>מיפוי מנועי הצמיחה</li>
-            <li>בניית funnel או revenue model</li>
-            <li>הגדרת assumptions ו-benchmarks</li>
+            <li>בניית משפך או מודל הכנסות</li>
+            <li>הגדרת הנחות ונתוני ייחוס</li>
             <li>בניית תרחישים וניתוח רגישות</li>
-            <li>זיהוי ה-metrics הקריטיים</li>
+            <li>זיהוי המדדים הקריטיים</li>
           </ul>
           <a class="more" href={localePath(lang,'/contact')}>אני רוצה לבנות מודל ←</a>
         </div>
         <div class="card">
-          <div class="idx">02 · Ongoing Growth Review</div>
-          <h3>מודל צמיחה + ליווי שוטף</h3>
-          <p>מתאים לחברות שרוצות להשתמש במודל ככלי עבודה, ולא להשאיר אותו כתוכנית חד־פעמית.</p>
+          <div class="idx">02 · ליווי שוטף</div>
+          <h3>מודל צמיחה עם ליווי שוטף</h3>
+          <p>מתאים לחברות שרוצות להשתמש במודל ככלי עבודה קבוע, ולא להשאיר אותו כתוכנית חד פעמית.</p>
           <ul class="qlist" style="margin-top:18px">
             <li>פגישה שבועית או חודשית</li>
-            <li>Actual vs. Model</li>
-            <li>ניתוח פערים ועדכון assumptions</li>
+            <li>השוואת המודל לביצועים בפועל</li>
+            <li>ניתוח פערים ועדכון הנחות</li>
             <li>בדיקת תרחישים</li>
             <li>זיהוי צווארי בקבוק</li>
             <li>תעדוף מנועי צמיחה ותמיכה בהחלטות</li>
@@ -111,15 +111,15 @@ const questions = [
       <div class="corebox" style="margin-top:28px">
         <div>
           <span class="target">דוגמה</span>
-          <p style="font-size:18px;font-weight:600;margin-bottom:16px">ההכנסות נמוכות ב־15% מהתכנון.</p>
+          <p style="font-size:18px;font-weight:600;margin-bottom:16px">ההכנסות נמוכות ב 15% מהתכנון.</p>
           <ul class="qlist">
-            <li>Traffic מעל התחזית</li>
-            <li>Conversion מתחת לתחזית</li>
-            <li>Retention בהתאם לתחזית</li>
+            <li>היקף התנועה מעל התחזית</li>
+            <li>שיעור ההמרה מתחת לתחזית</li>
+            <li>שיעור השימור בהתאם לתחזית</li>
           </ul>
         </div>
         <div>
-          <p class="keyline">המסקנה: הבעיה כרגע אינה acquisition אלא conversion.</p>
+          <p class="keyline" style="font-size:clamp(18px,2.1vw,23px);line-height:1.5;max-width:34ch;margin-top:18px">המסקנה: הבעיה כרגע אינה ברכישת לקוחות, אלא בשיעור ההמרה.</p>
           <p style="color:var(--muted);margin-top:16px">החלטה: לבדוק מהלך לשיפור ההמרה לפני הגדלת תקציב השיווק.</p>
         </div>
       </div>
@@ -130,21 +130,21 @@ const questions = [
     <div class="wrap">
       <div class="sec-head"><span class="mono">מתי זה שימושי</span><h2>מודל צמיחה מתאים לשלבים שונים בחיי הסטארטאפ</h2></div>
       <div class="cards">
-        <div class="card moment"><span class="tag">לפני השקה</span><h3>כשאין עדיין דאטה אמיתי</h3><p>המודל נשען יותר על assumptions ועל benchmarks רלוונטיים כדי לבדוק האם היעד העסקי ריאלי ומה חייב לקרות בדרך.</p></div>
+        <div class="card moment"><span class="tag">לפני השקה</span><h3>כשאין עדיין דאטה אמיתי</h3><p>המודל נשען יותר על הנחות ועל נתוני ייחוס רלוונטיים כדי לבדוק האם היעד העסקי ריאלי ומה חייב לקרות בדרך.</p></div>
         <div class="card moment"><span class="tag">בשלב גיוס</span><h3>להראות איך מגיעים ליעד</h3><p>המודל עוזר להציג לא רק תחזית הכנסות, אלא גם את מנועי הצמיחה וההנחות שמאחוריה.</p></div>
-        <div class="card moment"><span class="tag">לאחר ההשקה</span><h3>להחליף הנחות בביצועים אמיתיים</h3><p>כאן הערך עולה: אפשר להשוות מודל מול מציאות, לזהות variance, לעדכן assumptions ולקבל החלטות טובות יותר.</p></div>
+        <div class="card moment"><span class="tag">לאחר ההשקה</span><h3>להחליף הנחות בביצועים אמיתיים</h3><p>כאן הערך עולה. אפשר להשוות את המודל למציאות, לזהות פערים, לעדכן הנחות ולקבל החלטות טובות יותר.</p></div>
       </div>
     </div>
   </section>
 
   <section class="block">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">Growth Model ≠ Financial Model</span><h2>מודל צמיחה אינו מודל פיננסי</h2></div>
+      <div class="sec-head"><span class="mono">מודל צמיחה לעומת מודל פיננסי</span><h2>מודל צמיחה אינו מודל פיננסי</h2></div>
       <div class="vs">
         <div class="vscard"><span class="vk">מודל פיננסי</span><p class="vq">מה יהיו ההכנסות, ההוצאות ותזרים המזומנים?</p></div>
         <div class="vscard accent"><span class="vk">מודל צמיחה</span><p class="vq">מה בפועל צריך לקרות כדי שההכנסות האלה יתקיימו?</p></div>
       </div>
-      <p class="vs-note">המודל מחבר בין רכישה, המרה, תמחור, שימור ומנועי צמיחה נוספים לבין היעד העסקי.</p>
+      <p class="vs-note">המודל מחבר בין רכישת לקוחות, המרות, תמחור, שימור ומנועי צמיחה נוספים לבין היעד העסקי.</p>
     </div>
   </section>
 
@@ -153,10 +153,10 @@ const questions = [
       <div class="sec-head"><span class="mono">מי עומד מאחורי Modelera</span><h2>ניסיון מעשי בצמיחה, שיווק ואסטרטגיה</h2></div>
       <div class="corebox">
         <div>
-          <p style="font-size:18px;line-height:1.7">Modelera נבנתה מתוך ניסיון מעשי בעבודה עם חברות טכנולוגיה וסטארטאפים. אבי הרשקו הוא יועץ אסטרטגי עסקי ושיווקי עם יותר מ־20 שנות ניסיון, לשעבר VP Growth ב־Vimeo ו־Head of Marketing ב־Fiverr.</p>
+          <p style="font-size:18px;line-height:1.7">Modelera נבנתה מתוך ניסיון מעשי בעבודה עם חברות טכנולוגיה וסטארטאפים. אבי הרשקו הוא יועץ אסטרטגי עסקי ושיווקי עם יותר מ 20 שנות ניסיון, לשעבר VP Growth ב Vimeo ו Head of Marketing ב Fiverr.</p>
         </div>
         <div>
-          <p class="keyline">הגישה למודל היא קודם כל עסקית ותפעולית: להבין איך רכישת לקוחות, המרות, תמחור, שימור ומנועי צמיחה נוספים מתחברים ליעד.</p>
+          <p class="keyline" style="font-size:clamp(18px,2.1vw,23px);line-height:1.5;max-width:34ch;margin-top:18px">הגישה למודל היא קודם כל עסקית ותפעולית. המטרה היא להבין אילו מנועי צמיחה צריכים לעבוד, ואילו הנחות צריכות להתקיים, כדי להגיע ליעד.</p>
           <div style="margin-top:22px"><a class="btn btn-ghost" href={localePath(lang,'/about')}>עוד על אבי והגישה של Modelera</a></div>
         </div>
       </div>
@@ -165,7 +165,7 @@ const questions = [
 
   <section class="block">
     <div class="wrap">
-      <div class="sec-head"><span class="mono">Insights</span><h2>תוכן על Growth Modeling, הנחות, Benchmarks וקבלת החלטות</h2></div>
+      <div class="sec-head"><span class="mono">תובנות</span><h2>תוכן על מודלי צמיחה, הנחות, נתוני ייחוס וקבלת החלטות</h2></div>
       <div class="cards">
         {posts.map((post) => {
           const slug = post.id.replace(/^he\//, '').replace(/\.md$/, '');
