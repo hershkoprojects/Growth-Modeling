@@ -8,6 +8,7 @@ interface Props {
   path?: string;
   image?: string;
   type?: 'website' | 'article';
+  hasAlternate?: boolean;
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   path = '/',
   image = '/og-default.png',
   type = 'website',
+  hasAlternate = true,
 } = Astro.props;
 
 const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
@@ -29,9 +31,15 @@ const ogImage = image.startsWith('http') ? image : site + image;
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 
-<link rel="alternate" hreflang="en" href={site + enPath} />
-<link rel="alternate" hreflang="he" href={site + hePath} />
-<link rel="alternate" hreflang="x-default" href={site + enPath} />
+{hasAlternate ? (
+  <>
+    <link rel="alternate" hreflang="en" href={site + enPath} />
+    <link rel="alternate" hreflang="he" href={site + hePath} />
+    <link rel="alternate" hreflang="x-default" href={site + enPath} />
+  </>
+) : (
+  <link rel="alternate" hreflang={lang} href={canonical} />
+)}
 
 <meta property="og:type" content={type} />
 <meta property="og:title" content={title} />
