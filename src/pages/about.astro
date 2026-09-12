@@ -1,17 +1,149 @@
 ---
 import Base from '../layouts/Base.astro';
-import { useTranslations } from '../i18n/utils';
+import { localePath } from '../i18n/utils';
 const lang = 'en' as const;
-const t = useTranslations(lang);
 ---
-<Base lang={lang} path="/about" title={`${t('about.title')} — ${t('site.title')}`} description={t('about.p1')}>
-  <article class="article">
-    <span class="mono">{t('nav.about')}</span>
-    <h1>{t('about.title')}</h1>
-    <div class="prose">
-      <p>{t('about.p1')}</p>
-      <p>{t('about.p2')}</p>
-      <p>{t('about.p3')}</p>
+<Base
+  lang={lang}
+  path="/about"
+  title="About Modelera and the thinking behind it"
+  description="Modelera was built to turn a growth model from a one time planning document into a practical decision system that connects goals, assumptions, actual performance and action."
+>
+  <section class="about-hero block">
+    <div class="wrap about-hero-grid">
+      <div>
+        <span class="mono">About</span>
+        <h1>About Modelera and the thinking behind it</h1>
+        <p class="about-lead">Modelera grew out of a pattern I kept seeing while working with startups and technology companies. Growth models and forecasts get built at the beginning, but they quickly stop being used as tools for making decisions.</p>
+        <p class="about-support">The goal is to turn the growth model into a living operating tool, one that connects the business target to the growth drivers behind it, tests assumptions against reality and helps clarify what should change next.</p>
+      </div>
+      <div class="hero-note">
+        <span class="support-label">The principle</span>
+        <p><strong>The model is not only there to predict.</strong> It should help you understand what needs to be true for the target to be achievable, and what to do when reality looks different from the plan.</p>
+      </div>
     </div>
-  </article>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">The recurring problem</span>
+        <h2>The forecast gets approved, then it gets left behind</h2>
+      </div>
+      <div class="about-copy-grid">
+        <p>Founders and leadership teams spend a lot of time building forecasts, operating plans and models for fundraising, budgeting or launch. But once execution starts, the model often becomes a historical document.</p>
+        <p>The business then gets managed through dashboards, meetings, targets and intuition. What is usually missing is the connection between what was expected to happen, what actually happened and which assumption best explains the gap.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">The Modelera approach</span>
+        <h2>Start with the business target, then work backwards</h2>
+        <p>Instead of starting with the final number alone, build the logic that has to support it.</p>
+      </div>
+      <div class="cards approach-cards">
+        <div class="card">
+          <div class="idx">01</div>
+          <h3>Business target</h3>
+          <p>Define where the business is trying to get, whether that means revenue, customers, users or another core business outcome.</p>
+        </div>
+        <div class="card">
+          <div class="idx">02</div>
+          <h3>Growth drivers</h3>
+          <p>Break the target into acquisition, conversion, pricing, retention, usage and revenue drivers based on the business model.</p>
+        </div>
+        <div class="card">
+          <div class="idx">03</div>
+          <h3>Assumptions</h3>
+          <p>Make the critical assumptions explicit, identify what needs a benchmark and clarify what still needs to be tested.</p>
+        </div>
+        <div class="card">
+          <div class="idx">04</div>
+          <h3>Reality and decisions</h3>
+          <p>Compare the model with actual performance, identify the most important variance and decide what should change in the model or in the business.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block tinted">
+    <div class="wrap founder-grid">
+      <div class="founder-photo-wrap">
+        <img src="/avi-modelera-about.jpg" alt="Avi Hershko, founder of Modelera" class="founder-photo" loading="lazy" />
+      </div>
+      <div class="founder-copy">
+        <span class="mono">Who is behind Modelera</span>
+        <h2>Hands on experience across growth, marketing and strategy</h2>
+        <p><a href="https://avihershko.com/" target="_blank" rel="noopener noreferrer">Avi Hershko</a> is a business and marketing strategy advisor with more than 20 years of experience working with technology companies and startups. He previously served as VP Growth at Vimeo and Head of Marketing at Fiverr.</p>
+        <p>Over the years, I have worked closely with founders and leadership teams on strategy, marketing, growth, analytics and planning. One pattern kept repeating: there was often a gap between the forecast and the way the business was actually being managed.</p>
+        <p>Modelera came out of that experience. The goal is not to create another spreadsheet. It is to build a clear framework that connects the target, the assumptions and the actual performance, so better decisions can be made over time.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="mono">How I work with founders</span>
+        <h2>Start with the business, not with a template</h2>
+      </div>
+      <div class="work-steps">
+        <div class="work-step"><span>01</span><p>Understand the business target and the business model.</p></div>
+        <div class="work-step"><span>02</span><p>Map the growth drivers and the assumptions that matter most.</p></div>
+        <div class="work-step"><span>03</span><p>Build the first model and test scenarios that show what needs to happen.</p></div>
+        <div class="work-step"><span>04</span><p>When useful, continue with ongoing actual versus model reviews and update the assumptions over time.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <div class="finalcta">
+        <h2>Want to understand what needs to be true for your startup to reach its target?</h2>
+        <p>Start with an initial growth model, then turn it into an ongoing decision tool as the business evolves.</p>
+        <a class="btn btn-primary" href={localePath(lang, '/contact')}>Build your growth model</a>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .about-hero{padding-top:72px}
+    .about-hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:48px;align-items:center}
+    .about-hero h1{font-size:clamp(42px,6vw,68px);line-height:1.05;letter-spacing:-.03em;margin:14px 0 22px;max-width:15ch}
+    .about-lead{font-size:21px;line-height:1.65;max-width:62ch;color:#2a2e38;margin-bottom:18px}
+    .about-support{font-size:17px;line-height:1.75;max-width:66ch;color:var(--muted)}
+    .hero-note{background:var(--paper-2,#f2f2ed);border-inline-start:3px solid var(--brand);border-radius:14px;padding:28px}
+    .hero-note p{font-size:16px;line-height:1.7;color:var(--muted)}
+    .hero-note strong{color:var(--ink);font-weight:600}
+    .support-label{display:block;font-family:var(--body);font-size:13px;font-weight:500;color:var(--brand);margin-bottom:12px}
+    .about-copy-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px;max-width:980px}
+    .about-copy-grid p{font-size:18px;line-height:1.75;color:#30343e}
+    .approach-cards{grid-template-columns:repeat(4,1fr)}
+    .founder-grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:52px;align-items:start}
+    .founder-photo-wrap{width:240px}
+    .founder-photo{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 18%;border-radius:18px;border:1px solid var(--line);background:#fff}
+    .founder-copy{max-width:760px}
+    .founder-copy h2{font-size:clamp(30px,4vw,44px);line-height:1.15;margin:12px 0 20px}
+    .founder-copy p{font-size:17px;line-height:1.75;color:#30343e;margin-bottom:16px}
+    .founder-copy a{color:var(--brand);text-decoration:none}
+    .work-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .work-step{border-top:1px solid var(--line);padding-top:18px}
+    .work-step span{display:block;font-family:var(--mono);font-size:12px;color:var(--brand);margin-bottom:10px}
+    .work-step p{font-size:16px;line-height:1.6;color:#30343e}
+    @media(max-width:900px){
+      .about-hero-grid,.founder-grid,.about-copy-grid{grid-template-columns:1fr}
+      .approach-cards,.work-steps{grid-template-columns:1fr 1fr}
+      .founder-photo-wrap{width:210px}
+      .about-hero h1{max-width:none}
+    }
+    @media(max-width:620px){
+      .approach-cards,.work-steps{grid-template-columns:1fr}
+      .about-hero{padding-top:48px}
+      .founder-photo-wrap{width:190px}
+      .founder-grid{gap:28px}
+    }
+  </style>
 </Base>
