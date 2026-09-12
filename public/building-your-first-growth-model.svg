@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Building your first growth model</title>
+  <desc id="desc">Modelera blog cover for Building your first growth model</desc>
+  <rect width="1600" height="900" fill="#f4f4f4"/>
+  <g font-family="Arial, Helvetica, sans-serif" fill="#171717" text-anchor="middle">
+    <text x="800" y="128" font-size="46" font-weight="700">Modelera</text>
+    <text x="800" y="275" font-size="62" font-weight="700">Building your first growth model</text>
+  </g>
+  <g transform="translate(800 553)" fill="none" stroke="#000" stroke-width="11">
+    <ellipse rx="205" ry="65"/>
+    <ellipse rx="205" ry="65" transform="rotate(60)"/>
+    <ellipse rx="205" ry="65" transform="rotate(-60)"/>
+  </g>
+  <circle cx="800" cy="553" r="23" fill="#000"/>
+  <text x="800" y="836" font-family="Arial, Helvetica, sans-serif" font-size="31" font-weight="700" fill="#0758bf" text-anchor="middle">modelera.io</text>
+</svg>
