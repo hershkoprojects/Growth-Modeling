@@ -51,13 +51,16 @@ const questions = [
   <section class="block">
     <div class="wrap">
       <div class="sec-head"><span class="mono">השאלה המרכזית</span><h2>מה חייב להיות נכון כדי להגיע ליעד?</h2></div>
-      <div class="corebox">
+      <div class="corebox corebox-support">
         <div>
           <span class="target">יעד עסקי</span>
           <p style="color:var(--muted);margin-bottom:12px">מודל טוב מפרק יעד עסקי לשאלות שאפשר למדוד, לבדוק ולעדכן.</p>
           <ul class="qlist">{questions.map((q) => <li>{q}</li>)}</ul>
         </div>
-        <div><p class="keyline" style="font-size:clamp(17px,1.8vw,21px);font-weight:400;line-height:1.55;max-width:36ch;margin-top:14px">המטרה אינה רק לחזות את התוצאה. המטרה היא להבין אילו מנועים והנחות צריכים לעבוד כדי שהתוצאה תהיה אפשרית.</p></div>
+        <aside class="support-note">
+          <span class="support-label">למה זה חשוב</span>
+          <p><strong>המטרה אינה רק לחזות את התוצאה.</strong> המטרה היא להבין אילו מנועים והנחות צריכים לעבוד כדי שהתוצאה תהיה אפשרית.</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -108,7 +111,7 @@ const questions = [
           </>))}
         </div>
       </div>
-      <div class="corebox" style="margin-top:28px">
+      <div class="corebox corebox-support" style="margin-top:28px">
         <div>
           <span class="target">דוגמה</span>
           <p style="font-size:18px;font-weight:600;margin-bottom:16px">ההכנסות נמוכות ב 15% מהתכנון.</p>
@@ -118,10 +121,11 @@ const questions = [
             <li>שיעור השימור בהתאם לתחזית</li>
           </ul>
         </div>
-        <div>
-          <p class="keyline" style="font-size:clamp(17px,1.8vw,21px);font-weight:400;line-height:1.55;max-width:36ch;margin-top:14px">המסקנה: הבעיה כרגע אינה ברכישת לקוחות, אלא בשיעור ההמרה.</p>
-          <p style="color:var(--muted);margin-top:16px">החלטה: לבדוק מהלך לשיפור ההמרה לפני הגדלת תקציב השיווק.</p>
-        </div>
+        <aside class="support-note">
+          <span class="support-label">מה המודל אומר לנו</span>
+          <p><strong>הבעיה כרגע אינה ברכישת לקוחות.</strong> שיעור ההמרה הוא צוואר הבקבוק המרכזי.</p>
+          <p class="support-action"><strong>החלטה:</strong> לבדוק מהלך לשיפור ההמרה לפני הגדלת תקציב השיווק.</p>
+        </aside>
       </div>
     </div>
   </section>
@@ -151,13 +155,14 @@ const questions = [
   <section class="block tinted">
     <div class="wrap">
       <div class="sec-head"><span class="mono">מי עומד מאחורי Modelera</span><h2>ניסיון מעשי בצמיחה, שיווק ואסטרטגיה</h2></div>
-      <div class="corebox">
-        <div>
-          <p style="font-size:18px;line-height:1.7">Modelera נבנתה מתוך ניסיון מעשי בעבודה עם חברות טכנולוגיה וסטארטאפים. <a href="https://avihershko.com/he/" target="_blank" rel="noopener noreferrer" style="color:var(--brand);text-decoration:none">אבי הרשקו</a> הוא יועץ אסטרטגי עסקי ושיווקי עם יותר מ 20 שנות ניסיון, לשעבר VP Growth ב Vimeo ו Head of Marketing ב Fiverr.</p>
-        </div>
-        <div>
-          <p class="keyline" style="font-size:clamp(17px,1.8vw,21px);font-weight:400;line-height:1.55;max-width:36ch;margin-top:0">הגישה למודל היא קודם כל עסקית ותפעולית. המטרה היא להבין אילו מנועי צמיחה צריכים לעבוד, ואילו הנחות צריכות להתקיים, כדי להגיע ליעד.</p>
-          <div style="margin-top:22px"><a class="btn btn-ghost" href={localePath(lang,'/about')}>עוד על אבי והגישה של Modelera</a></div>
+      <div class="about-card">
+        <p class="about-bio">Modelera נבנתה מתוך ניסיון מעשי בעבודה עם חברות טכנולוגיה וסטארטאפים. <a href="https://avihershko.com/he/" target="_blank" rel="noopener noreferrer">אבי הרשקו</a> הוא יועץ אסטרטגי עסקי ושיווקי עם יותר מ 20 שנות ניסיון, לשעבר VP Growth ב Vimeo ו Head of Marketing ב Fiverr.</p>
+        <div class="about-lower">
+          <div class="about-note">
+            <span class="support-label">הגישה</span>
+            <p>הגישה למודל היא קודם כל עסקית ותפעולית. המודל מחבר בין רכישת לקוחות, המרות, תמחור, שימור ומנועי צמיחה נוספים לבין היעד העסקי.</p>
+          </div>
+          <a class="btn btn-ghost" href={localePath(lang,'/about')}>עוד על אבי והגישה של Modelera</a>
         </div>
       </div>
     </div>
