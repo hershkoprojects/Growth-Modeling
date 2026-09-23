@@ -22,9 +22,12 @@ const posts = (await getCollection('blog', (p) => p.id.startsWith('en/') && !p.d
           const slug = post.id.replace(/^en\//, '').replace(/\.md$/, '');
           return (
             <a class="post-row" href={localePath(lang, `/blog/${slug}`)}>
-              <span class="k">{post.data.kind} · {post.data.readMins} min</span>
-              <h3>{post.data.title}</h3>
-              <p>{post.data.description}</p>
+              {post.data.image && <img src={post.data.image} alt={post.data.imageAlt ?? ''} class="post-row-img" loading="lazy" />}
+              <div class="post-row-body">
+                <span class="k">{post.data.kind} · {post.data.readMins} min</span>
+                <h3>{post.data.title}</h3>
+                <p>{post.data.description}</p>
+              </div>
             </a>
           );
         })}
