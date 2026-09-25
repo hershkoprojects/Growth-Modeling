@@ -12,7 +12,8 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content, headings } = await post.render();
+const toc = headings.filter((heading) => heading.depth === 2);
 const lang = 'en' as const;
 const t = useTranslations(lang);
 const slug = post.id.replace(/^en\//, '').replace(/\.md$/, '');
@@ -25,6 +26,16 @@ const date = post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', mo
     </div>
     <span class="mono">{post.data.kind} · {post.data.readMins} min · {date}</span>
     <h1>{post.data.title}</h1>
+    {toc.length > 0 && (
+      <nav class="article-toc" aria-label="Table of contents">
+        <div class="article-toc-title">Table of contents</div>
+        <ol>
+          {toc.map((heading) => (
+            <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+          ))}
+        </ol>
+      </nav>
+    )}
     <div class="prose"><Content /></div>
   </article>
 </Base>
