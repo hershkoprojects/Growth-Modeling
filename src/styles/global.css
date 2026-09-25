@@ -362,3 +362,51 @@ footer{border-top:1px solid var(--line);padding:40px 0;margin-top:20px}
   display: block;
   overflow-x: auto;
 }
+
+
+/* ---------- article table of contents ---------- */
+.article-toc{
+  margin:28px 0 34px;
+  padding:22px 24px;
+  background:var(--paper-2);
+  border:1px solid var(--line);
+  border-radius:14px;
+}
+.article-toc-title{
+  font-family:var(--serif);
+  font-size:18px;
+  font-weight:600;
+  color:var(--ink);
+  margin-bottom:12px;
+}
+.article-toc ol{
+  margin:0;
+  padding-inline-start:22px;
+  columns:2;
+  column-gap:34px;
+}
+.article-toc li{
+  break-inside:avoid;
+  margin:0 0 8px;
+  color:var(--muted);
+}
+.article-toc a{
+  color:var(--muted);
+  text-decoration:none;
+  text-underline-offset:3px;
+}
+.article-toc a:hover{
+  color:var(--brand);
+  text-decoration:underline;
+}
+.prose h2{
+  scroll-margin-top:96px;
+}
+@media(max-width:640px){
+  .article-toc{
+    padding:20px;
+  }
+  .article-toc ol{
+    columns:1;
+  }
+}
