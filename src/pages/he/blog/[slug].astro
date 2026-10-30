@@ -24,6 +24,32 @@ const allPosts = await getCollection('blog');
 const hasEnglishVersion = allPosts.some((p) => p.id === `en/${slug}.md` || p.id === `en/${slug}`);
 
 const faqBySlug: Record<string, Array<{ question: string; answer: string }>> = {
+  'growth-model-assumptions': [
+    {
+      question: 'מה עושים אם אין בכלל נתונים?',
+      answer: 'מתחילים מ Benchmarks, נתונים מחברות דומות, בדיקות קטנות ותרחישים. חשוב לתעד מהו מקור כל מספר וכמה אתם בטוחים בו.',
+    },
+    {
+      question: 'איך מעריכים CAC לפני השקה?',
+      answer: 'אפשר לפרק את ה Funnel להנחות על CPC, Conversion ו Lead to Customer, להשתמש ב Benchmarks רלוונטיים ולהריץ קמפיין קטן כדי להתחיל להחליף את ההנחות בנתוני אמת.',
+    },
+    {
+      question: 'האם כדאי להשתמש ב Benchmark של מתחרה?',
+      answer: 'כן, אבל בזהירות. Benchmark של מתחרה רלוונטי רק אם Business Model, Customer Segment, Pricing, Geography ו GTM Motion דומים מספיק.',
+    },
+    {
+      question: 'כמה הנחות צריך במודל?',
+      answer: 'מספיק כדי להסביר את מנועי הצמיחה המרכזיים. מודל עם עשרות משתנים שאינם משפיעים משמעותית על התוצאה יכול להיות פחות שימושי ממודל פשוט עם Drivers ברורים.',
+    },
+    {
+      question: 'מה ההבדל בין Assumption ל Forecast?',
+      answer: 'Assumption הוא קלט במודל. Forecast הוא התוצאה שנוצרת כאשר מחברים בין ההנחות.',
+    },
+    {
+      question: 'מתי צריך לעדכן הנחות?',
+      answer: 'כאשר מגיע מידע חדש. זה יכול להיות כל חודש, כל שבוע או לאחר Experiment משמעותי. ככל שה Driver חשוב יותר לעסק, כך כדאי לעקוב אחריו בתדירות גבוהה יותר.',
+    },
+  ],
   'startup-business-model': [
     {
       question: 'מה ההבדל בין מודל עסקי למודל פיננסי?',
